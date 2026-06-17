@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KLOVER · Programa de Transformación Comercial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14161c;--ink2:#4b5160;--ink3:#878d9c;--bg:#fff;--bg2:#f6f7f9;--line:#e9ebf1;--line2:#dde0e8;
+--dark:#0e1d14;--indigo:#4848de;--green:#2f7d44;--amber:#9a6b08;--cyan:#0e7f97;--red:#c0392b;--mint:#9fe1cb;
+--grad:linear-gradient(115deg,#5b9655,#4848de);--graddark:linear-gradient(115deg,#8fe49a,#9b97ff);
+--head:'Heebo',sans-serif;--body:'Quicksand',sans-serif;--mono:'JetBrains Mono',monospace;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--head);letter-spacing:-.02em;line-height:1.12;color:var(--ink)}
+a{color:inherit;text-decoration:none}strong,b{color:var(--ink)}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+nav{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:14px;height:58px;padding:0 22px}
+.logo{display:flex;align-items:center;gap:9px;font-family:var(--head);font-weight:800;font-size:17px}.logo svg{width:25px;height:25px}
+.klogo{width:26px;height:26px;flex:none;border-radius:50%;display:inline-block;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALkAAAC4CAYAAAC/8U35AAAN2UlEQVR4nO2dT3LbuBLGv7yaffxOEOUEwzlBOCeI3kYrVYVZavWUEwxzgpFXWkau0kqboU8Q+gRDneBJN7BOkLdAa6zINgmSABp/+lelclwkgY78qdVoNIA3P378gCDEzL+4DRAE24jIhegRkQvRIyIXokdELkTPL9wGhMx8PcsB3ABILn6C/v1rz+ZOABr69+Hq1WwXu8dBRgp4IynEbubr2QRKwBmAHMAEwDsGUx6gPggNlPAbBhuCQ0T+AiTq/OLFIWgdzt6/BlCJ6F9GRE7M17MplKCn8FfUXZwAVHgS/SOnMb6QtMhJ2OfXW05bLHEPJfqkBZ+cyCkUWSJsjz2EOyixV9yGuCYZkc/XswJAAeADryXsHAGsAGxS8e5Ri3y+nt1Aee0CaXltXe4AlNvF7sBtiE2iFPmFuJeIM9Y2TdRij0rkIu7RRCn2aEQ+X89KiLhNEZXYgxc5pQFXkJjbNCcAq+1iV3IbMpZgRU6pwA0kW2KbI4Biu9jV3IYMJUiRS2jCwj2U2B+5DelLUCKfr2cZlPfuW+EnmOEEJfSK25A+BCPy+Xq2BPAntx0CgMC8uvcip7RgBYm9fSOYWN3rlUG0KOEAEbiPvAPwnb5hvcZbTy7hSVB4Hb54J3IKT1YAPvFaIvRkDyX0htuQa7wSOQm8hmRPQuUEIPdN6N7E5JQebCACD5m3AP6msmZv8MKTk8BryOROTHzeLnYbbiMADzy5CDxavtHMNDusnlwEngR328Wu4DSAzZOLwJPh03w923AawCJyEXhysArduchF4MnyiSvr4lTkIvDk+cYhdGcDT5noES743WVhl0tPXkMELigq+lZ3ghOR06BDBC6ceQsl9BsXnVkXOVUTSrGVcM07qHUC1rEqcqoHl3JZ4TU+zNezle1OrA086avoAMmkCN38x+a6UZuevIIIXNBjYzM+tyJyisNlyZqgy1tYjM+Ni5xSQ6XpdoXo+WBrvagNT76BhCnCMEraGc0oRkVOn0TJhwtDeQvlJI1iLLtCn8AG4sWF8RhdVWTSk68gAhfMsDKZbTEicpr0+WiiLUGAcpYrU42Z8uQbQ+0IwplPpoq4RoucBpuyAb5gg5WJRkYNPGXqXnDA6NrzsZ58CRG4YJdybAODPbl48d48XP3eAHjseCa/+j1Dmu/3qJTiLyM6XiLNN/w1HqA+9D+9bJ2gRhktQAn/BuoDcYM4J+OWGJHcGOTJE/fiJygvXNPPxrejAGlibgIl/IxeoScHBsfmQz15gXQEfoISdA2g9m3H1pegD90BymYA/zimDE/CzxHW37DE8/BNi6Ge/IDwPUMbeyiBVCEcFzIUykPnFy/fRf/bECfTW+R0OOxffTsKgD1U3Ff5Fn644kL0U/i5HmDQvopDRF7DzzdgCCcoYW9CCENcQuFNDiX4Kfzx8v/ue2xLL5HTgOZ//WzykgcoYW+4DQkF+gY/vzgF/2W72K36PNB34Fn0vN837gCUqYYjY6CFxhXALvgCPaf7+3ryA8IbcJ6g3pSVr6eThQwJvoDbKtReA1BtkdPkw/dhNrEg4nYIxfAF1MSNbUd4u13slro39wlXit6m8PEVIm6n0Hu9glrwkEPpxdbOaVOoD5MWfTz5I/wZYb+GxNweYdm7a4csWiKn/Onf42yyyh7AMuaJm5CxNLeiHbLohivFYFPscoLy3CtuQ4SXobTzxkLTU2iGLLr15PlAQ2zyACATgXtPBTth7jvdPVo6PTk15FP5pnjvQKBzPG1qZwqNnLmOJ89HGmIS8d6BQM5xabmbXOcmnZhcqyEHfN0udiW3EYI2K9jPxuU6N4XgyU9QBfMlsx2CJg734Xmrs21Fq8gpz8k5jb8HMJHUYHCUDvvKum7oClc6G7AI+5nsQn/Ii7ssxc7RkaLsCldyQ4b05YsIPFgKx/1Num7wzZOfoGYuN477FQxAGRXXJ/11fmt0efLMjB1anADkIvCgKTg67Rp8donc1aDzLPDGUX+CHQqmfidtF18VucNjoUXgEUADTq5MXNZ2sc2T3xg142XOKcLGQV+CXQrGvidtF9tEnhs14zl7KA/+aLkfwQ1Txr4nbRetHjvewglAIQKPAwptORfU3LRdbBN5ZtSMJyQGj4+Cuf/WSkfXMbkIPE5ybgPacB2uTEXgceHLeoO2bKDLcOWzFFpFSc5tAHHz2oU2kZscSNzKTGa05NwGdOEiXLnvsxGMEBw5twFd2Bb5Hvwjb8ESHqw30MKmyCUXHj85twE62BR5IZmU6Mm4Dbhg8toFWyK/pa1+hbjJuQ3QwYbI9zLQTAafThw5vHbBtMhPkIFmEjgsxR6NaZGXEocnQ8ZtgC4mRf4gO1slRcZtgC6mRC5hSnpk3Abo0ibyhx7tyMb36ZFxG3DF42sXTHhyCVMSgyoPvTp1pG0saELkSwNtRMl8Pcvn61nBbYcFMm4D+tC2uVCN7jzorWRTnkM1HRsAj5HuBJZxG3DFse3iGE9+gtuNHYOAzsc5IF6BA/6J/NB2sc2TNx0NL6X46okL7/0RdFAXozm2ybgNuOKx7WKbJ2978CiLIJ6gjXUaPAk89q02fCuvbdouviryjqVqxTBb4oPOxfkO9YePvryYPtC+cWi72LWr7RHPP7UPslbzWXhyJoWF2hm3AS9waLvYNfB86eFyoCHRQMVJNX4W+JdEPvwTbgOu6Xrfu0R+/XDyXpyyJzV+3obhLqEJsYzbgCv2XTd0iby5+r0cakkM0MTOX/h5ti/2TMo1PtWQA91ZwM6Y/LKBpL34fD3b4PkpCtEPNC/xtIa86bqh1ZNT0dV5NqkcbU6gvCJwIL36+Qm3AS/QdN2gc1htA+CQqhdvEXiKhWkZtwHX6OhSR+Q1OmaUYoRShDVe3ucv1fr5nNuAK7TKwXVEvkkl5jzTIXAg3fr5jNuAKyqdmzoLtETgz0gxTPFho/2XqHVu4jppwmdWaN+KeOnGDO/IuA244qg76BeRX9AyyDyTcv18xm3AFbXujSJyQkPgqdfP59wGXFHp3igixz8zmV3HZa9SG59cwX6axAWnPtsQJi9yqkX51nHbESpWTxIPy2urPjcnLXLKGGw0bi0T9+I5twFXVH1uTlbklCqs0J0Wk1VQfon82HfH5GRFDuXBdZZxbeyaEQQ+VR5WfR9IUuS0ZO1j131QGZWVVWM8x8N4fNX3geRETnH4H5q3J1fS8AJTbgMuuB9STpGUyC/icF1WVgwJi5zbgAtWQx5KSuTQj8MBVaNysGeK//hy2jJxHFrunYzIKR+uE4ef2dixJChybgMuKIc+mITIL7aP0OWEAaP4CJlyG0CMSuMmIXIoL9CnTLSSASeAft98NinHPBy9yCkF9t+ej1XmLQkLCu98YPRkXPQix7AReW3YhhCZchtAlGMbiFrkVF3YNztwn3qoQmOYKbMZgKGSimhFTn+o1YBHa6OGhMkUfix1K0w0Eq3IoZapDflD1WbNCJIptwEwuJlVlCInL74c8Ogp4eVtAP6ZAPIhq1KYaihKkWO4F2/MmhEkBbcBAL6anG2OTuQjvDggoQrAL3Ljq7CiEznGDZoac2aEB+XGuY9KMb6BaowiL0c8ezBkQ6gsmfu/tbHnZlQip9nNwZ4o5UEn1dlzrgA6wtKWH1GJHOPiyc4TCyJnydz/1NYkXDQipwFn194pbTyasSQ8KG045r0byxeb36LRiBzjJzAOBmwIlZKx73vbG6iKyJ84GLAhOJi9+B4OUpZRiJxCFR9m6UKkZOrX2XlLUYgcZpZpPRpoIygoG8XlxQtX2axYRD410EZjoI3QKJn6/dx3F6wxxCLynNuA0KDZTY68+J3rbfeCFznF49xT0UExotZ+LHfbxa5w3WnwIod/JyCEQAn3joFF4EAcIs+5DQiJgQu7x7LnEjgQh8gnhtq5MdSOtwzYf8YEezA7Ip1zPH1nYqidDPFvRVHCbZjCFqJcEoMnz7gNCAGGMMULgQNxiNyHVeVeM2A337F4I3AgDpGbIuc2wCI13DmDzz4JHAg8JicPJbQwX89WcLP98rkWpXLQVy9C9+SZwbZ8OhfHCLSDmIs4fA8g91HgQPgiN0pM3ww00Ow6n9QE91ACbxz0NYigwxWYrwHPEMG2FLRes3LQ1RfbCx5MELQnt3DcSWa4PefQIogadgeaewC/hSBwIHCRWyDjNmAMPQ7gHcMtPA9Prgk9XAHUqN7UHzUz1I5zSOA17GVSjlDZk9pS+9aIwZM3Btv6NcTBpwOBf90udpMQBQ7EIfLKcHu54faschGD2xD4PYD328WutNC2M4IXOQ1+3gO4M9Rkbqgd61AWpYF5ge8B/L5d7KYxnGX65sePH9w2GINywyXGTewct4vdxIQ9NqH/awWzg8wjgNL18jTbRCXyMwbE/t5nD0YzmSYneqIU95koRX6GxF6g/7YL3k5yUC2Kqan6PYBVrOI+E7XIz9DgbAkleJ2v9/12scvsWdSfixy4iRqbOwCbULMlfUlC5JfQV32BbrF4E7IYir/PJzhUvvy/XJGcyM+Qd59CCf6l7IQXIct8PSsB/DHw8RPUms5NSDOUpklW5Je8InjWLAvZVKF/evBIz1WphCNdiMivuDiNOIfKOBwYbFhCZYd0wpMT1GRQjQRDER1E5B5B3nuD9vHCA9QEUAOgSTkM0SWGAq0ouIq9H+hnA7Xbbg3gIF56GOLJhegJvnZFELoQkQvRIyIXokdELkSPiFyInv8DAE/nE973CaoAAAAASUVORK5CYII=) center/contain no-repeat}
+.logo small{font-family:var(--body);font-weight:600;font-size:11px;letter-spacing:.1em;color:var(--ink3);text-transform:uppercase;border-left:1px solid var(--line2);padding-left:9px}
+.ncta{margin-left:auto;display:flex;gap:8px}
+.btn{font-family:var(--head);font-weight:700;font-size:12.5px;padding:9px 16px;border-radius:9px;border:1px solid var(--line2);background:#fff;color:var(--ink2);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn.pri{color:#fff;background:var(--grad);border:none}
+@media(max-width:620px){.logo small{display:none}.btn{padding:8px 12px}}
+.shell{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:262px 1fr;gap:34px;padding:0 22px}
+aside{position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto;padding:22px 6px 40px 0;border-right:1px solid var(--line)}
+aside .grp{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:16px 0 6px}
+aside a{display:block;font-size:12.7px;font-weight:600;color:var(--ink2);padding:5px 10px;border-radius:7px;border-left:2px solid transparent}
+aside a:hover{background:var(--bg2);color:var(--ink)}
+aside a.on{color:var(--indigo);border-left-color:var(--indigo);background:#f3f3fe}
+main{min-width:0;padding:16px 0 70px}
+@media(max-width:920px){.shell{grid-template-columns:1fr}aside{display:none}}
+.hero{background:var(--dark);color:#fff;border-radius:0 0 22px 22px;overflow:hidden;position:relative;margin-bottom:14px}
+.hero .pad{padding:46px 40px 42px;position:relative;z-index:2;max-width:780px}
+.hero .cl{position:absolute;right:-50px;top:50%;transform:translateY(-50%);width:330px;height:330px;opacity:.85}
+.hero .kick{font-family:var(--head);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mint)}
+.hero h1{font-size:40px;font-weight:800;letter-spacing:-.03em;margin-top:12px;color:#fff;line-height:1.08}
+.hero h1 .g{background:var(--graddark);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:#c4d2c8;font-size:16.5px;margin-top:14px;max-width:62ch}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:9px 24px;font-size:12.5px;color:#8fae9a}.hero .meta b{color:#dfeee6}
+.hero .pbtn{margin-top:22px;display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--dark);font-family:var(--head);font-weight:800;font-size:14px;padding:11px 20px;border-radius:10px;border:none;cursor:pointer}
+@media(max-width:700px){.hero .pad{padding:34px 24px}.hero h1{font-size:28px}.hero .cl{display:none}}
+.sec{padding:34px 0;border-bottom:1px solid var(--line)}.sec:last-child{border:none}
+.kicker{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--indigo)}
+.sec h2{font-size:26px;font-weight:800;letter-spacing:-.025em;margin:5px 0 4px}
+.sec>.lead{color:var(--ink2);font-size:16px;margin-bottom:14px;max-width:80ch}
+.sec h3{font-size:18px;font-weight:800;margin:24px 0 8px}
+.sec h4{font-size:14.5px;font-weight:800;margin:16px 0 6px}
+.sec p{margin-bottom:10px;max-width:84ch}
+.sec ul{list-style:none;margin:6px 0 12px}.sec ul li{position:relative;padding-left:20px;margin-bottom:7px;max-width:84ch}
+.sec ul li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--grad)}
+.sec ol{margin:6px 0 12px 20px}.sec ol li{margin-bottom:7px;max-width:84ch}
+.guide{background:#f3f3fe;border:1px solid #dcdcfb;border-left:4px solid var(--indigo);border-radius:12px;padding:16px 20px;margin:14px 0}
+.guide .gh{font-family:var(--head);font-weight:800;font-size:13px;letter-spacing:.03em;text-transform:uppercase;color:var(--indigo);margin-bottom:8px}
+.guide ol{margin:4px 0 0 18px}.guide ul{margin:4px 0 0}.guide li{margin-bottom:6px;font-size:14.5px}.guide p{font-size:14.5px;margin:0 0 6px;max-width:none}.guide p:last-child{margin-bottom:0}
+.guide.green{background:#eef7f0;border-color:#cce6d3;border-left-color:var(--green)}.guide.green .gh{color:var(--green)}
+.guide.amber{background:#fbf4e6;border-color:#ecdcb6;border-left-color:var(--amber)}.guide.amber .gh{color:var(--amber)}
+.note{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:14px;color:var(--ink2);margin:10px 0}.note b{color:var(--ink)}
+.note.warn{background:#fdeef0;border-color:#f3d4da}
+.term{border-bottom:2px dotted var(--indigo);cursor:help;font-weight:600;color:var(--ink)}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:760px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:18px}.card h4{margin:0 0 6px;font-size:15px}
+.card p,.card li{font-size:13.5px;color:var(--ink2)}.card .tag{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.card ul{margin:6px 0 0}.card ul li{padding-left:16px;margin-bottom:5px}.card ul li::before{top:8px;width:5px;height:5px}
+.dotP{color:var(--indigo)}.dotS{color:var(--green)}.dotR{color:var(--amber)}.dotC{color:var(--cyan)}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0 14px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tbl th{background:var(--dark);color:#fff;font-family:var(--head);font-weight:700;font-size:12px;text-align:left;padding:10px 12px}
+.tbl td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top;color:var(--ink2)}.tbl td b,.tbl td strong{color:var(--ink)}
+.tbl tr:nth-child(even) td{background:#fbfbfd}.tbl.mono td:first-child{font-family:var(--head);font-weight:700;color:var(--ink)}
+.tbl.center td,.tbl.center th{text-align:center}.tbl.center td:first-child{text-align:left}
+.scrollx{overflow-x:auto}
+.badge{font-family:var(--mono);font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px;color:#fff;display:inline-block}
+.pill{font-family:var(--head);font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;display:inline-block}
+.pill.act{background:#f3f3fe;color:var(--indigo)}.pill.adv{background:#eef7f0;color:var(--green)}.pill.res{background:#fbf4e6;color:var(--amber)}
+/* STAT BIG */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:14px 0}@media(max-width:760px){.stats{grid-template-columns:1fr 1fr}}
+.stat{background:var(--dark);color:#fff;border-radius:13px;padding:18px}.stat .n{font-family:var(--head);font-weight:800;font-size:30px;color:var(--mint);line-height:1}.stat .l{font-size:12.5px;color:#c4d2c8;margin-top:6px}
+/* ROUTINE */
+.routine{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}@media(max-width:760px){.routine{grid-template-columns:1fr}}
+.rcard{border:1px solid var(--line);border-radius:13px;overflow:hidden}
+.rcard .rh{padding:12px 16px;color:#fff;font-family:var(--head);font-weight:800;font-size:14px}
+.rcard.r1 .rh{background:var(--indigo)}.rcard.r2 .rh{background:var(--green)}.rcard.r3 .rh{background:var(--amber)}
+.rcard .rb{padding:14px 16px}.rcard .rb .m{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed var(--line);padding:7px 0;font-size:13.5px}
+.rcard .rb .m:last-child{border:none}.rcard .rb .m b{font-family:var(--head);font-size:18px;color:var(--ink)}
+/* TIMELINE / ROADMAP */
+.tl{position:relative;margin:16px 0 6px;padding-left:8px}
+.tlitem{position:relative;padding:0 0 8px 30px;border-left:2px solid var(--line2);margin-left:8px}
+.tlitem:last-child{border-left-color:transparent}
+.tlitem .dot{position:absolute;left:-9px;top:2px;width:16px;height:16px;border-radius:50%;background:var(--grad);border:3px solid #fff;box-shadow:0 0 0 1px var(--line2)}
+.tlitem .ph{font-family:var(--head);font-weight:800;font-size:15.5px;margin-bottom:2px}
+.tlitem .pr{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--indigo);text-transform:uppercase;letter-spacing:.04em}
+.tlbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:8px}
+.tlbox .row{display:grid;grid-template-columns:120px 1fr;gap:8px;font-size:13.5px;padding:5px 0;border-top:1px solid var(--line)}
+.tlbox .row:first-child{border-top:none}.tlbox .row .k{font-family:var(--head);font-weight:700;color:var(--ink);font-size:12.5px}
+@media(max-width:600px){.tlbox .row{grid-template-columns:1fr;gap:2px}}
+/* TRAINING MONTHS */
+.month{border:1px solid var(--line);border-radius:13px;overflow:hidden;margin-bottom:12px}
+.month .mh{display:flex;align-items:center;gap:12px;padding:13px 18px;background:var(--bg2);border-bottom:1px solid var(--line)}
+.month .mn{width:34px;height:34px;border-radius:9px;background:var(--grad);color:#fff;display:grid;place-items:center;font-family:var(--head);font-weight:800;font-size:15px;flex:none}
+.month .mt{font-family:var(--head);font-weight:800;font-size:15.5px}.month .mt small{display:block;font-family:var(--body);font-weight:600;font-size:12px;color:var(--ink3)}
+.month .mb{padding:14px 18px;display:grid;grid-template-columns:1fr 1fr;gap:8px 26px}@media(max-width:700px){.month .mb{grid-template-columns:1fr}}
+.month .mb .blk h5{font-family:var(--head);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--indigo);margin:4px 0 4px}
+.month .mb .blk p,.month .mb .blk li{font-size:13.5px;color:var(--ink2)}.month .mb .blk ul{margin:0}.month .mb .blk ul li{padding-left:15px;margin-bottom:4px}.month .mb .blk ul li::before{top:8px;width:5px;height:5px}
+/* SCRIPTS */
+.script{background:#fff;border:1px solid var(--line);border-left:4px solid var(--indigo);border-radius:12px;padding:16px;position:relative;margin-bottom:14px}
+.script .sh{font-family:var(--head);font-weight:800;font-size:14.5px;margin-bottom:3px;padding-right:70px}
+.script .sm{font-family:var(--mono);font-size:10.5px;color:var(--ink3);text-transform:uppercase;font-weight:600;margin-bottom:9px}
+.script .sb{font-size:13.5px;color:var(--ink2)}.script .sb p{margin-bottom:7px;max-width:none}.script .sb em{color:var(--ink3);font-style:normal;font-size:12.5px}
+.copy{position:absolute;top:13px;right:13px;font-family:var(--head);font-weight:700;font-size:11px;color:var(--ink2);background:var(--bg2);border:1px solid var(--line2);border-radius:7px;padding:5px 9px;cursor:pointer}
+.copy.done{background:#eef7f0;border-color:#cce6d3;color:var(--green)}
+.script.s-li{border-left-color:var(--cyan)}.script.s-mail{border-left-color:var(--indigo)}.script.s-call{border-left-color:var(--green)}.script.s-follow{border-left-color:var(--amber)}.script.s-ref{border-left-color:var(--dark)}
+/* AGENDA */
+.agenda{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:10px 0}
+.agenda .arow{display:grid;grid-template-columns:64px 1fr;gap:0;border-top:1px solid var(--line)}.agenda .arow:first-child{border-top:none}
+.agenda .at{background:var(--bg2);font-family:var(--mono);font-weight:600;font-size:12px;color:var(--indigo);padding:11px 12px;display:flex;align-items:center}
+.agenda .ad{padding:11px 14px;font-size:13.5px}.agenda .ad b{color:var(--ink)}
+/* TABS */
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 16px}
+.tab{font-family:var(--head);font-weight:700;font-size:12.5px;padding:7px 14px;border-radius:999px;border:1px solid var(--line2);background:#fff;color:var(--ink2);cursor:pointer}
+.tab.on{color:#fff;border-color:transparent;background:var(--indigo)}
+.panel{display:none}.panel.on{display:block}
+.kanban{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:12px 0;overflow-x:auto}
+.kcol{min-width:120px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.kcol .kh{padding:8px 10px;font-family:var(--head);font-weight:800;font-size:11.5px;color:#fff;background:var(--dark);text-align:center}
+.kcol .kb{padding:9px 10px;font-size:11.5px;color:var(--ink2);min-height:60px}
+footer{background:var(--dark);color:#9fb3a6;padding:30px 22px;text-align:center;font-size:13px;border-radius:22px 22px 0 0;margin-top:10px}footer b{color:#fff}
+.reveal{opacity:0;transform:translateY(16px);transition:.5s}.reveal.in{opacity:1;transform:none}
+/* PRESENTATION */
+#present{position:fixed;inset:0;z-index:200;background:var(--dark);color:#fff;display:none}
+#present.open{display:block}
+.pbar{position:absolute;top:0;left:0;height:4px;background:var(--graddark);width:0;transition:width .3s;z-index:5}
+.pslide{position:absolute;inset:0;padding:8vh 9vw;flex-direction:column;justify-content:center;display:none}
+.pslide.on{display:flex;animation:pin .45s ease}
+@keyframes pin{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.pslide .pk{font-family:var(--head);font-weight:700;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint)}
+.pslide h2{font-size:clamp(28px,5vw,54px);font-weight:800;letter-spacing:-.03em;margin:14px 0 6px;color:#fff;line-height:1.05}
+.pslide h2 .g{background:var(--graddark);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pslide .psub{font-size:clamp(15px,2vw,21px);color:#c4d2c8;max-width:66ch;margin-bottom:18px}
+.pslide ul{list-style:none;display:flex;flex-direction:column;gap:13px;margin-top:8px}
+.pslide ul li{position:relative;padding-left:34px;font-size:clamp(15px,2vw,22px);color:#e6efe9;max-width:64ch}
+.pslide ul li::before{content:"";position:absolute;left:0;top:.5em;width:14px;height:14px;border-radius:4px;background:var(--graddark)}
+.pslide ul li b{color:#fff}
+.pcards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
+@media(max-width:760px){.pcards{grid-template-columns:1fr}}
+.pcard{background:rgba(255,255,255,.05);border:1px solid rgba(159,225,203,.2);border-radius:16px;padding:22px}
+.pcard .n{font-family:var(--head);font-weight:800;font-size:30px;color:var(--mint)}
+.pcard h3{color:#fff;font-size:19px;margin:6px 0 6px}.pcard p{color:#c4d2c8;font-size:14.5px}
+.pcl{position:absolute;right:5vw;bottom:6vh;width:240px;height:240px;opacity:.5}
+.pctrl{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;gap:14px;padding:18px 5vw;z-index:6}
+.pbtn2{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;font-size:20px;cursor:pointer;display:grid;place-items:center}
+.pbtn2:hover{background:rgba(255,255,255,.15)}
+.pdots{display:flex;gap:7px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.pdot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer}.pdot.on{background:var(--mint);width:22px;border-radius:5px}
+.pcount{font-family:var(--mono);font-size:13px;color:#8fae9a}
+.pexit{position:absolute;top:18px;right:24px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;font-family:var(--head);font-weight:700;font-size:13px;padding:8px 14px;border-radius:9px;cursor:pointer;z-index:6}
+.plogo{position:absolute;top:18px;left:5vw;display:flex;align-items:center;gap:8px;font-family:var(--head);font-weight:800;color:#fff;z-index:6}
+@media print{nav,aside,#present{display:none!important}.shell{grid-template-columns:1fr}main{padding:0}.sec{break-inside:avoid;padding:18px 0}.reveal{opacity:1!important;transform:none!important}.panel{display:block!important}.hero{border-radius:0}.month,.script,.card,.tlbox{break-inside:avoid}}
+</style>
+</head>
+<body>
+<nav><div class="in">
+  <a class="logo" href="#top"><span class="klogo"></span>KLOVER <small>Transformación Comercial</small></a>
+  <div class="ncta"><button class="btn pri" onclick="openPres()">▶ Presentar</button><button class="btn" onclick="window.print()">PDF</button></div>
+</div></nav>
+
+<div class="shell">
+<aside id="toc">
+  <div class="grp">Por qué</div><a href="#resumen">1 · Resumen ejecutivo</a><a href="#diagnostico">2 · Diagnóstico actual</a>
+  <div class="grp">Fundamentos</div><a href="#vender">3 · Qué es vender en KLOVER</a><a href="#modelo">4 · Modelo comercial y roles</a><a href="#icp">5 · Cliente ideal y decisores</a><a href="#valor">6 · Propuesta de valor y discurso</a><a href="#arquitectura">7 · Arquitectura comercial y segmentación</a>
+  <div class="grp">Prospectar</div><a href="#prospeccion">8 · Sistema de prospectación</a><a href="#rutina">9 · Rutina diaria y semanal</a><a href="#guiones">10 · Guiones comerciales</a>
+  <div class="grp">Vender</div><a href="#reunion">11 · Primera reunión</a><a href="#oportunidades">12 · Gestión de oportunidades</a><a href="#caso">13 · Caso de negocio y justificación</a><a href="#propuestas">14 · Propuestas comerciales</a><a href="#objeciones">15 · Objeciones</a>
+  <div class="grp">Gestionar el equipo</div><a href="#capacitacion">16 · Capacitación de managers</a><a href="#reuniones">17 · Sistema de reuniones</a>
+  <div class="grp">Medir</div><a href="#indicadores">18 · Indicadores</a><a href="#tablero">19 · Tablero de control</a>
+  <div class="grp">Ejecutar</div><a href="#roadmap">20 · Plan de 180 días</a><a href="#cambio">21 · Gestión del cambio</a><a href="#glosario">22 · Glosario</a><a href="#cierre">23 · Cierre ejecutivo</a>
+</aside>
+<main id="top">
+
+<header class="hero">
+  <svg class="cl" viewBox="0 0 300 300"><g transform="rotate(16,150,150)"><g transform="rotate(0,150,150)"><ellipse cx="150" cy="100" rx="18" ry="44" fill="#9fe1cb" opacity=".9"/></g><g transform="rotate(72,150,150)"><ellipse cx="150" cy="100" rx="18" ry="44" fill="#8fe49a" opacity=".82"/></g><g transform="rotate(144,150,150)"><ellipse cx="150" cy="100" rx="18" ry="44" fill="#aab0ff" opacity=".8"/></g><g transform="rotate(216,150,150)"><ellipse cx="150" cy="100" rx="18" ry="44" fill="#7ddc8f" opacity=".74"/></g><g transform="rotate(288,150,150)"><ellipse cx="150" cy="100" rx="18" ry="44" fill="#9b97ff" opacity=".7"/></g></g><circle cx="150" cy="150" r="10" fill="#9fe1cb"/></svg>
+  <div class="pad">
+    <div class="kick">Programa de Transformación Comercial</div>
+    <h1>De vender por relaciones<br>a vender por <span class="g">sistema.</span></h1>
+    <p>El manual operativo de KLOVER para alinear a dirección, managers y equipo comercial, y para que cada persona sepa <b>qué hacer todos los días</b>: a quién buscar, cómo contactarlo, cómo conducir una reunión, cómo gestionar la oportunidad y cómo medir el avance.</p>
+    <div class="meta"><span><b>Horizonte:</b> 180 días</span><span><b>Unidades:</b> People · Salud · Risk</span><span><b>Dirigido a:</b> Dirección y managers</span><span><b>Uso:</b> interno</span></div>
+    <button class="pbtn" onclick="openPres()">▶ Iniciar presentación</button>
+  </div>
+</header>
+
+<!-- 1 RESUMEN -->
+<section class="sec reveal" id="resumen">
+  <div class="kicker">Por qué · 1</div><h2>Resumen ejecutivo</h2>
+  <p class="lead">KLOVER vende tres servicios que se complementan: <b>People</b> (gestión de personas y RRHH), <b>Salud</b> (auditoría y recupero de beneficios de salud) y <b>Risk</b> (control del riesgo laboral por contratistas y terceros, Art. 30). El servicio es sólido y los clientes se quedan. El problema no es el producto: es <b>cómo se consiguen clientes</b>.</p>
+
+  <h3>Qué problema tiene KLOVER hoy</h3>
+  <p>Hoy las ventas dependen de las <b>relaciones y las recomendaciones</b>: alguien conoce a alguien, surge una charla y a veces aparece un cliente. Eso trae buenos clientes, pero tiene tres fallas que frenan el crecimiento. Primero, <b>no se puede planificar</b>: nadie sabe cuántos clientes vamos a sumar el mes que viene. Segundo, <b>no se puede repetir a voluntad</b>: si este mes no hubo recomendaciones, no hay ventas. Tercero, <b>no se puede mejorar</b>: como no se mide nada, no se sabe dónde se traba la venta ni cómo destrabarla.</p>
+
+  <h3>Por qué no alcanza con tener buenos servicios</h3>
+  <p>Un buen servicio hace que el cliente <b>se quede y nos recomiende</b>, pero no hace que aparezcan clientes nuevos de manera previsible. Tener un buen producto y esperar que el mercado venga solo es lo que nos tiene atados a la suerte. La calidad retiene; lo que falta es un <b>motor que genere oportunidades nuevas todas las semanas</b>, exista o no una recomendación.</p>
+
+  <h3>Por qué se necesita un sistema comercial</h3>
+  <p>Un sistema comercial es simplemente <b>un conjunto de pasos ordenados, con responsables, frecuencia y números</b>, que convierte la actividad de cada día en clientes de forma medible. La diferencia es enorme: cuando vendemos por relaciones, el resultado depende de que aparezca el contacto correcto; cuando vendemos por sistema, el resultado depende de <b>cuánto trabajo hacemos y qué tan bien lo hacemos</b> — dos cosas que sí controlamos. Un sistema permite saber, por ejemplo, que de cada 100 empresas contactadas salen 10 reuniones, 4 propuestas y 1 cliente; y con eso, calcular hacia atrás cuánto hay que prospectar para llegar a la meta.</p>
+
+  <div class="guide green"><div class="gh">La idea madre de este programa</div><p>No se trata de que cada manager <b>se esfuerce más</b>, sino de que todos trabajen <b>con el mismo método</b>: a quién buscar, cómo contactarlo, qué decir, cómo conducir la reunión, cuándo avanzar una oportunidad y qué número mirar. El esfuerzo aislado no escala; el sistema sí.</p></div>
+
+  <h3>Qué cambiará en los próximos 180 días</h3>
+  <div class="stats">
+    <div class="stat"><div class="n">3</div><div class="l">motores de crecimiento activos: cartera actual, prospección a clientes nuevos y aliados.</div></div>
+    <div class="stat"><div class="n">1</div><div class="l">proceso comercial único, cargado en un solo sistema, igual para todos.</div></div>
+    <div class="stat"><div class="n">100%</div><div class="l">de los managers entrenados con la misma metodología comercial.</div></div>
+    <div class="stat"><div class="n">+1</div><div class="l">tablero con números a la vista que dirección revisa cada semana.</div></div>
+  </div>
+  <p>Al cabo de seis meses, KLOVER deja de “esperar” clientes y pasa a <b>generarlos de forma sistemática</b>: cada semana se crean oportunidades nuevas, cada manager sabe gestionarlas con el mismo método y la dirección puede ver el avance con datos, no con sensaciones.</p>
+
+  <div class="note"><b>Cómo leer este documento.</b> Cada vez que aparece una <span class="term" title="Palabra técnica explicada al lado y en el Glosario (sección 22).">palabra técnica</span> está explicada al lado, en lenguaje simple, y todas están reunidas en el <a href="#glosario" style="color:var(--indigo);font-weight:700">Glosario (sección 22)</a>. Con el botón <b>“▶ Presentar”</b> arriba a la derecha, el documento se convierte en una presentación a pantalla completa para mostrarlo a dirección o al equipo. El botón <b>“PDF”</b> lo prepara para imprimir o guardar.</div>
+</section>
+
+<!-- 2 DIAGNOSTICO -->
+<section class="sec reveal" id="diagnostico">
+  <div class="kicker">Por qué · 2</div><h2>Diagnóstico comercial actual</h2>
+  <p class="lead">Antes de construir hay que mirar de frente lo que falta. Este diagnóstico no busca culpables: describe el punto de partida real para saber exactamente qué hay que instalar. Cada problema tiene su consecuencia y, en este mismo documento, su solución.</p>
+  <div class="scrollx"><table class="tbl">
+    <tr><th style="width:24%">Lo que pasa hoy</th><th>Qué significa en concreto</th><th>Qué provoca</th><th>Dónde se resuelve</th></tr>
+    <tr><td><b>Dependemos de referencias y relaciones</b></td><td>Casi todos los clientes llegan porque alguien nos recomendó o conocía a alguien del equipo.</td><td>Si un mes no hay recomendaciones, no hay ventas. El crecimiento no se puede planificar.</td><td>Secciones 4, 7 y 8</td></tr>
+    <tr><td><b>No prospectamos de forma sistemática</b></td><td>Nadie tiene la tarea fija de salir a buscar empresas nuevas todas las semanas.</td><td>El embudo se vacía sin que nadie lo note hasta que faltan cierres.</td><td>Secciones 7 y 8</td></tr>
+    <tr><td><b>No hay una metodología común</b></td><td>Cada persona vende a su manera, con su estilo y su criterio.</td><td>Los resultados no se pueden comparar, copiar ni enseñar. Lo que funciona se pierde.</td><td>Secciones 3, 9, 10 y 11</td></tr>
+    <tr><td><b>No hay indicadores comerciales</b></td><td>No medimos cuántos contactos, reuniones o propuestas se hacen, ni qué porcentaje cierra.</td><td>No sabemos dónde se traba la venta, así que no podemos mejorarla.</td><td>Secciones 16 y 17</td></tr>
+    <tr><td><b>Managers sin entrenamiento homogéneo</b></td><td>Algunos tienen oficio comercial; otros vienen de operaciones o de lo técnico.</td><td>La calidad de la venta depende de quién la haga, no de un estándar.</td><td>Sección 14</td></tr>
+    <tr><td><b>Crecimiento impredecible</b></td><td>No podemos anticipar la facturación nueva de los próximos meses.</td><td>No se puede planificar la contratación, la inversión ni la operación.</td><td>Secciones 16, 17 y 18</td></tr>
+  </table></div>
+  <div class="guide amber"><div class="gh">Lectura honesta</div><p>Nada de esto se arregla con voluntad ni con “ponerle más ganas”. Se arregla <b>instalando un sistema</b>: tareas fijas, un método compartido y números a la vista. Este documento es ese sistema, explicado paso a paso. El diagnóstico es duro a propósito: solo se mejora lo que primero se admite.</p></div>
+</section>
+
+<!-- 3 QUE ES VENDER -->
+<section class="sec reveal" id="vender">
+  <div class="kicker">Fundamentos · 3</div><h2>Qué significa vender en KLOVER</h2>
+  <p class="lead">Para que todos trabajemos igual, primero hay que hablar el mismo idioma. Estas son las ocho palabras del oficio comercial, explicadas desde cero, con lo que significan puntualmente en KLOVER. No se asume ningún conocimiento previo.</p>
+  <div class="grid g2">
+    <div class="card"><h4 class="dotP">1 · Qué es vender</h4><p>Vender no es convencer ni presionar. Es <b>ayudar a una empresa a resolver un problema que le cuesta dinero</b>, mostrándole que con KLOVER lo resuelve mejor que como lo hace hoy. Si no hay un problema real y caro, no hay venta: hay insistencia. Nuestro trabajo es encontrar ese problema, ponerle un número y proponer la solución.</p></div>
+    <div class="card"><h4 class="dotP">2 · Qué es prospectar</h4><p>Prospectar es <b>salir a buscar empresas que todavía no nos conocen</b> y empezar una conversación con ellas. Es lo opuesto a esperar que nos recomienden. Es la actividad que llena el embudo: sin prospección constante, en algún momento se acaban las oportunidades.</p></div>
+    <div class="card"><h4 class="dotP">3 · Qué es una empresa objetivo</h4><p>Es una empresa que <b>encaja con nuestro cliente ideal</b> (sección 5): tiene el tamaño, el rubro y el problema que sabemos resolver, y puede pagar el servicio. No toda empresa es objetivo; perseguir a las que no encajan es perder tiempo.</p></div>
+    <div class="card"><h4 class="dotP">4 · Qué es una oportunidad comercial</h4><p>Es una empresa objetivo en la que ya <b>detectamos un problema concreto y hay alguien dispuesto a hablar de resolverlo</b>. Una oportunidad no es “un contacto”: es un contacto + un problema real + interés. Recién ahí entra al embudo y se le hace seguimiento.</p></div>
+    <div class="card"><h4 class="dotS">5 · Qué es una reunión comercial</h4><p>Es la conversación —presencial o por videollamada— donde <b>entendemos cómo trabaja la empresa, encontramos su dolor y le mostramos cómo se vería resuelto con KLOVER</b>. No es una presentación de nosotros: es una investigación del cliente. Se habla poco y se escucha mucho.</p></div>
+    <div class="card"><h4 class="dotS">6 · Qué es una propuesta</h4><p>Es el documento que <b>conecta el problema que detectamos con la solución de KLOVER, su alcance y su precio</b>. Una buena propuesta no describe lo que hacemos: describe lo que el cliente gana y cuánto le cuesta no hacerlo.</p></div>
+    <div class="card"><h4 class="dotR">7 · Qué es cerrar una venta</h4><p>Cerrar es <b>acordar que arrancamos: alcance, condiciones y firma</b>. No es un truco final; es la consecuencia natural de haber detectado bien el problema y haberlo cuantificado. Si todo lo anterior se hizo bien, cerrar es solo confirmar el próximo paso.</p></div>
+    <div class="card"><h4 class="dotR">8 · Qué es gestionar una cartera</h4><p>La cartera son <b>los clientes que ya tenemos</b>. Gestionarla es cuidarlos, asegurarse de que renueven y <b>venderles las otras unidades</b> (venta cruzada). Es la fuente de crecimiento más rentable y rápida, porque ya confían en nosotros.</p></div>
+  </div>
+  <div class="note"><b>Idea para fijar.</b> Vender en KLOVER es un proceso, no un talento. Tiene pasos, se puede aprender y se puede medir. Quien siga el método va a vender, aunque hoy no se sienta “vendedor”.</div>
+</section>
+
+<!-- 4 MODELO -->
+<section class="sec reveal" id="modelo">
+  <div class="kicker">Fundamentos · 4</div><h2>Modelo comercial KLOVER: quién hace qué</h2>
+  <p class="lead">Un sistema sin responsables se apaga en dos semanas. Acá se define, tarea por tarea, quién la ejecuta. La regla es simple: <b>cada paso de la venta tiene un único responsable</b>. Lo que es de todos no es de nadie.</p>
+  <div class="guide"><div class="gh">Cómo leer los roles</div><p>En empresas chicas, una misma persona puede ocupar varios roles (por ejemplo, un manager prospecta, agenda, diagnostica y cierra). Eso está bien. Lo importante no es tener muchas personas, sino que <b>para cada tarea esté claro quién la hace</b>, aunque sea la misma persona en varios papeles.</p></div>
+  <h3>Tabla de roles y responsabilidades</h3>
+  <div class="scrollx"><table class="tbl">
+    <tr><th>Tarea comercial</th><th>Quién la ejecuta</th><th>Qué tiene que lograr</th><th>Frecuencia</th></tr>
+    <tr><td><b>Genera oportunidades</b> (contenido + interés)</td><td>Marketing / Dirección Comercial</td><td>Que lleguen contactos del perfil ideal y que la marca eduque sobre los tres dolores.</td><td>Continua</td></tr>
+    <tr><td><b>Prospecta</b> (sale a buscar clientes nuevos)</td><td>Cada manager comercial</td><td>Empresas objetivo nuevas contactadas todas las semanas.</td><td>Diaria</td></tr>
+    <tr><td><b>Agenda reuniones</b></td><td>Cada manager comercial</td><td>Convertir contactos en reuniones confirmadas con quien decide.</td><td>Diaria</td></tr>
+    <tr><td><b>Realiza el diagnóstico</b></td><td>Manager comercial (con apoyo técnico de la unidad)</td><td>Confirmar el dolor, su tamaño y el impacto económico.</td><td>Por oportunidad</td></tr>
+    <tr><td><b>Arma la propuesta</b></td><td>Manager comercial</td><td>Conectar el problema detectado con la solución, alcance y precio.</td><td>Por oportunidad</td></tr>
+    <tr><td><b>Negocia</b></td><td>Manager comercial</td><td>Resolver dudas y acordar alcance y condiciones sin regalar precio.</td><td>Por oportunidad</td></tr>
+    <tr><td><b>Cierra</b></td><td>Manager comercial / Dirección Comercial</td><td>Firma o aceptación y pase ordenado a Operaciones.</td><td>Por oportunidad</td></tr>
+    <tr><td><b>Hace seguimiento</b></td><td>Cada manager comercial</td><td>Que ninguna oportunidad quede sin próximo paso con fecha.</td><td>Diaria</td></tr>
+    <tr><td><b>Gestiona clientes actuales</b> (cartera + venta cruzada)</td><td>Manager de cuenta / responsable de la unidad</td><td>Renovaciones, satisfacción y venta de las otras unidades.</td><td>Mensual</td></tr>
+    <tr><td><b>Controla el sistema</b> (números y método)</td><td>Dirección Comercial</td><td>Tablero al día, ritmo de reuniones y disciplina del proceso.</td><td>Semanal</td></tr>
+  </table></div>
+  <div class="note"><b>Regla de oro del modelo.</b> Lo que no está cargado en el sistema, no existe. Una reunión que no se registró, una propuesta que no se cargó o un seguimiento que no se anotó <b>no cuentan</b>: no se pueden medir ni mejorar.</div>
+</section>
+
+<!-- 5 ICP -->
+<section class="sec reveal" id="icp">
+  <div class="kicker">Fundamentos · 5</div><h2>Cliente ideal y decisores</h2>
+  <p class="lead">La decisión más rentable del programa es <b>enfocar el tiempo en las empresas que mejor cierran, más rinden y más se quedan</b>. Querer venderle a todos es venderle a nadie: se diluye el esfuerzo y se persiguen empresas que nunca van a comprar.</p>
+  <h3>A qué empresas conviene venderles</h3>
+  <ul>
+    <li><b>PyMEs de 15 a 200 empleados que crecen</b> y se les complica la gestión de personas, el costo de la cobertura médica o el control de contratistas.</li>
+    <li><b>Empresas grandes (200+)</b> con mucha dotación, muchos contratistas o beneficios de salud complejos, donde el costo y el riesgo legal pesan.</li>
+    <li>Rubros con buen encaje: servicios, tecnología, salud, comercio y consumo, logística e industria con muchos terceros.</li>
+    <li>Empresas que <b>pueden pagar un abono</b> y valoran tener datos para decidir, no solo el precio más bajo.</li>
+  </ul>
+  <h3>A qué empresas NO conviene venderles</h3>
+  <ul>
+    <li><b>Muy chicas (menos de 15 empleados)</b> que no pueden sostener un abono ni el servicio.</li>
+    <li>Las que buscan <b>tapar un problema puntual</b> y no quieren una gestión continua.</li>
+    <li>Las que <b>compran solo por precio</b> y no valoran la plataforma ni el criterio.</li>
+  </ul>
+  <div class="note warn"><b>Por qué decir que no.</b> Cada hora puesta en una empresa que no encaja es una hora que no se le dedica a una que sí. Descartar rápido lo que no es cliente ideal es parte del método, no falta de esfuerzo.</div>
+
+  <h3>Quién decide, según el tamaño de la empresa</h3>
+  <div class="grid g2">
+    <div class="card"><h4 class="dotP">En la PyME decide una persona</h4><p>Casi siempre el <b>dueño, el CEO o el gerente general</b>. Decide rápido (semanas), mira el problema concreto y el costo. Le duele “hacer todo él”, las urgencias y la plata que se va sin medir. Con él funciona el contacto directo y mostrarle, con números, cuánto le cuesta el problema hoy.</p></div>
+    <div class="card"><h4 class="dotR">En la empresa grande decide un grupo</h4><p>Deciden varias áreas a la vez: <b>RRHH, Finanzas, Compras y Legales</b>. Es lento (meses, a veces con licitación) y cada área mira algo distinto. Hay que hablarle a cada una en su idioma y conseguir un aliado interno que empuje desde adentro.</p></div>
+  </div>
+  <h3>Qué le duele a cada decisor y qué mensaje usar</h3>
+  <div class="scrollx"><table class="tbl">
+    <tr><th>Decisor</th><th>Qué quiere</th><th>Qué le duele</th><th>Mensaje que le sirve</th></tr>
+    <tr><td><b>Dueño / CEO (PyME)</b></td><td>Que la empresa funcione sin estar él en cada detalle.</td><td>Juicios, perder gente clave, gastar de más.</td><td>“Sin sumar estructura fija, dejás de apagar incendios.”</td></tr>
+    <tr><td><b>Gerente de RRHH</b></td><td>Profesionalizar y escalar sin perder calidad.</td><td>Quedar corto de gente y errores legales.</td><td>“Somos una extensión de tu equipo, con datos.”</td></tr>
+    <tr><td><b>Gerente de Finanzas</b></td><td>Eficiencia y control del gasto.</td><td>Costos ocultos y sorpresas.</td><td>“Recupero a resultado y comparación con tu sector.”</td></tr>
+    <tr><td><b>Compras / Legales (grande)</b></td><td>Proveedor confiable y riesgo controlado.</td><td>Incumplimientos y falta de pruebas ante auditoría.</td><td>“Gobierno, evidencia y cumplimiento, sobre plataforma propia.”</td></tr>
+  </table></div>
+  <div class="guide green"><div class="gh">Señales de que una empresa está por necesitarnos</div><p>Conviene contactar justo cuando aparece una de estas señales: <b>crece la dotación</b>, hay <b>mucha rotación</b>, hubo un <b>problema con la prepaga</b>, la empresa <b>empieza a usar contratistas</b>, recibió una <b>inspección o auditoría</b>, o cambió una <b>ley</b> que la afecta. Esas señales valen más que cualquier lista fría: son empresas con el dolor activo.</p></div>
+</section>
+
+<!-- 6 VALOR -->
+<section class="sec reveal" id="valor">
+  <div class="kicker">Fundamentos · 6</div><h2>Propuesta de valor y discurso comercial</h2>
+  <p class="lead">El discurso comercial es la forma simple de explicar por qué elegirnos. Tiene que poder decirlo cualquiera del equipo, igual, sin tecnicismos. De acá salen todos los mensajes, emails y guiones.</p>
+  <h3>Qué problema resolvemos y qué gana el cliente</h3>
+  <div class="vpc grid g2">
+    <div class="card"><div class="tag dotP">People</div><ul><li><b>El problema:</b> rotación, desorden, el dueño hace todo, líos legales.</li><li><b>Le damos:</b> RRHH operado y medido, cumplimiento y datos.</li><li><b>Gana:</b> un equipo estable y foco en su negocio.</li></ul></div>
+    <div class="card"><div class="tag dotS">Salud</div><ul><li><b>El problema:</b> el costo médico sube y se va plata sin control.</li><li><b>Le damos:</b> auditoría, recupero a resultado y control del padrón.</li><li><b>Gana:</b> menos costo y recupera dinero que ya era suyo.</li></ul></div>
+    <div class="card"><div class="tag dotR">Risk</div><ul><li><b>El problema:</b> ser responsable por sus contratistas (Art. 30), reclamos.</li><li><b>Le damos:</b> control de terceros mes a mes y evidencia documentada.</li><li><b>Gana:</b> riesgo neutralizado y diligencia que puede demostrar.</li></ul></div>
+    <div class="card"><div class="tag dotC">KLOVER (todo junto)</div><ul><li>Un solo socio para personas, salud y riesgo.</li><li>Plataforma propia con datos en vivo, no una planilla.</li><li>Crece sumando capacidad, no empleados fijos.</li></ul></div>
+  </div>
+  <h3>Por qué KLOVER es diferente</h3>
+  <p>Una diferencia sirve para vender solo si cumple tres cosas: <b>al cliente le importa, nos distingue de los demás y es difícil de copiar</b>. Estas cuatro las cumplen.</p>
+  <div class="grid g4">
+    <div class="card"><h4>Plataforma propia</h4><p>Datos en vivo; no tercerizamos en una planilla.</p></div>
+    <div class="card"><h4>Cobro a resultado</h4><p>En Salud: si no recuperamos, no cobramos. Riesgo cero para el cliente.</p></div>
+    <div class="card"><h4>Tres unidades integradas</h4><p>Un solo socio para los tres problemas.</p></div>
+    <div class="card"><h4>Ejecutamos</h4><p>No solo aconsejamos: operamos hasta el resultado.</p></div>
+  </div>
+  <h3>El discurso de 60 segundos</h3>
+  <div class="guide"><div class="gh">Para decir en un ascensor o al inicio de una reunión</div><p>“KLOVER ayuda a empresas que crecen a <b>gestionar tres cosas que les cuestan plata y dolores de cabeza</b>: la gente, la cobertura de salud y el riesgo de sus proveedores. Lo hacemos con <b>plataforma propia</b>, operando nosotros —no solo aconsejando— y en salud <b>cobramos solo si recuperamos</b>. Así una empresa suma capacidad especializada <b>sin tener que contratar un área entera</b>, y con datos para decidir. El primer paso siempre es un <b>diagnóstico sin cargo</b>: si no encontramos valor, no hay nada que cambiar.”</p></div>
+  <h3>Cómo explicar cada servicio en una frase, sin tecnicismos</h3>
+  <div class="scrollx"><table class="tbl mono">
+    <tr><th style="width:18%">Servicio</th><th>La frase simple</th></tr>
+    <tr><td>People</td><td>“Operamos tu RRHH como un equipo externo, para que el dueño deje de apagar incendios.”</td></tr>
+    <tr><td>Salud</td><td>“Revisamos tu cobertura médica y recuperamos la plata que se está yendo. Cobramos solo si recuperamos.”</td></tr>
+    <tr><td>Risk</td><td>“Controlamos a tus proveedores y dejamos la prueba que te protege si te reclaman o te inspeccionan.”</td></tr>
+  </table></div>
+</section>
+
+<!-- 7 ARQUITECTURA -->
+<section class="sec reveal" id="arquitectura">
+  <div class="kicker">Fundamentos · 7</div><h2>Arquitectura comercial y modelo de segmentación</h2>
+  <p class="lead">Esta sección no define a quién le vende KLOVER (eso está en la sección 5). Es una <b>metodología profesional</b> para que cada manager aprenda a analizar un mercado, agruparlo en segmentos, evaluar y clasificar clientes, descubrir dónde está el valor, priorizar el esfuerzo y llegar a cada reunión con una hipótesis razonable. En una frase: <b>enseña a pensar comercialmente antes de salir a prospectar</b>. Se aplica siempre con los datos reales del negocio, no con supuestos.</p>
+  <div class="note"><b>Cómo usar este capítulo.</b> Es un método repetible. Cada manager lo corre con la información real de su mercado y obtiene su propio mapa: qué segmentos atacar primero, a quién hablarle dentro de cada empresa y con qué hipótesis. El método es siempre el mismo; las conclusiones las pone cada uno con sus datos.</div>
+
+  <!-- 7.1 -->
+  <h3>1 · Principios de segmentación comercial</h3>
+  <p>Segmentar es <b>agrupar el mercado en conjuntos de empresas parecidas entre sí</b> para tratarlas distinto según su valor. El principio de fondo es simple: <b>no todos los clientes valen lo mismo</b>, y tratarlos a todos igual desperdicia el recurso más caro que tiene el equipo, que es su tiempo.</p>
+  <ul>
+    <li><b>Distinto valor:</b> dos empresas pueden facturar parecido y, sin embargo, una deja mucho más margen, se queda más años y compra más servicios. Esa diferencia hay que verla antes de invertirle tiempo.</li>
+    <li><b>Distinto costo de venderles:</b> a algunas se les llega fácil y deciden rápido; a otras hay que trabajarlas meses. El esfuerzo no es gratis.</li>
+    <li><b>Distinto encaje:</b> hay empresas a las que les resolvemos un dolor grande y otras a las que apenas les movemos la aguja. Conviene concentrarse donde más impacto generamos.</li>
+  </ul>
+  <div class="guide"><div class="gh">La regla que justifica todo el capítulo</div><p>Una parte chica del mercado concentra la mayor parte del valor. Si el equipo reparte su tiempo por igual entre todas las empresas, le dedica lo mismo a las que valen mucho que a las que valen poco. Segmentar y priorizar es, simplemente, <b>poner el mejor esfuerzo donde está el mejor retorno</b>.</p></div>
+
+  <!-- 7.2 -->
+  <h3>2 · Framework de segmentación</h3>
+  <p>Para agrupar el mercado se miran siete dimensiones. No hace falta usarlas todas siempre: se eligen las que mejor separan a los clientes buenos de los demás en cada negocio. Cada dimensión se completa con datos reales.</p>
+  <div class="scrollx"><table class="tbl">
+    <tr><th style="width:18%">Dimensión</th><th>Qué se mira</th><th>Por qué importa comercialmente</th></tr>
+    <tr><td><b>Tamaño</b></td><td>Empleados, facturación, cantidad de sedes o de personal tercerizado.</td><td>Determina el tamaño de la oportunidad y cómo se decide la compra (una persona vs. un comité).</td></tr>
+    <tr><td><b>Industria</b></td><td>Rubro o sector al que pertenece la empresa.</td><td>Cada industria tiene dolores, lenguaje y ritmos de compra propios. Agruparlas permite afinar el mensaje.</td></tr>
+    <tr><td><b>Complejidad</b></td><td>Qué tan complicada es su operación: procesos, áreas, dispersión geográfica.</td><td>A mayor complejidad, más valor puede aportar una solución, pero también más largo el ciclo de venta.</td></tr>
+    <tr><td><b>Riesgo</b></td><td>Exposición a problemas legales, regulatorios, financieros o de cumplimiento.</td><td>El riesgo no atendido es un motor de compra: una empresa expuesta tiene urgencia.</td></tr>
+    <tr><td><b>Madurez</b></td><td>Qué tan profesionalizada está su gestión: ¿improvisa o ya tiene procesos y áreas formales?</td><td>Define si hay que educar mucho (poco madura) o si ya entiende el valor y compara opciones (madura).</td></tr>
+    <tr><td><b>Potencial económico</b></td><td>Cuánto podría llegar a facturarnos esa empresa en total.</td><td>Separa cuentas grandes de cuentas chicas, más allá de la primera compra.</td></tr>
+    <tr><td><b>Potencial de crecimiento</b></td><td>Si la empresa está creciendo, estable o achicándose.</td><td>Una empresa que crece genera necesidades nuevas todo el tiempo: es terreno fértil.</td></tr>
+  </table></div>
+  <div class="guide green"><div class="gh">Cómo construir tus segmentos</div><ol>
+    <li>Elegí 2 o 3 dimensiones que de verdad separen a tus buenos clientes (por ejemplo, tamaño + industria + riesgo).</li>
+    <li>Cruzalas para formar grupos concretos (por ejemplo: “empresas medianas de logística con mucho personal tercerizado”).</li>
+    <li>Ponele nombre a cada segmento y describilo en una línea. Un segmento que no se puede describir en una frase, está mal definido.</li>
+    <li>Quedate con pocos segmentos claros. Demasiados segmentos es lo mismo que ninguno.</li>
+  </ol></div>
+
+  <!-- 7.3 -->
+  <h3>3 · Modelo de evaluación de clientes</h3>
+  <p>Una vez agrupado el mercado, cada empresa (o cada segmento) se evalúa con cinco criterios, puntuando del <b>1 al 5</b> (1 = muy bajo, 5 = muy alto). La evaluación convierte una intuición (“esta cuenta es buena”) en un número comparable.</p>
+  <div class="scrollx"><table class="tbl">
+    <tr><th style="width:24%">Criterio</th><th>Qué mide</th><th>Pregunta guía para puntuar</th></tr>
+    <tr><td><b>Rentabilidad potencial</b></td><td>Cuánto margen, no solo cuánta facturación, podría dejar.</td><td>¿Esta cuenta deja buen margen o es mucho trabajo por poca plata?</td></tr>
+    <tr><td><b>Facilidad de acceso</b></td><td>Qué tan fácil es llegar a quien decide y conseguir una reunión.</td><td>¿Tengo cómo llegar (contacto, aliado, canal) o es una fortaleza amurallada?</td></tr>
+    <tr><td><b>Probabilidad de cierre</b></td><td>Qué tan probable es que termine comprando.</td><td>¿Hay un dolor real, presupuesto y un momento, o es un “quizás” lejano?</td></tr>
+    <tr><td><b>Potencial de venta cruzada</b></td><td>Si, además de la primera venta, podría comprar otros servicios.</td><td>¿La cuenta tiene varias necesidades que podríamos cubrir con el tiempo?</td></tr>
+    <tr><td><b>Potencial de permanencia</b></td><td>Cuántos años podría quedarse como cliente.</td><td>¿Es una relación de largo plazo o un trabajo de una sola vez?</td></tr>
+  </table></div>
+  <div class="note"><b>Cómo se usa la matriz.</b> Se puntúa cada criterio del 1 al 5 y se suman: el total va de 5 a 25. Ese número permite <b>comparar empresas con la misma vara</b> y alimenta directamente la priorización del punto 6. Lo importante no es la precisión decimal, sino ordenar: ¿esta cuenta está arriba o abajo respecto de las demás?</div>
+
+  <!-- 7.4 -->
+  <h3>4 · Mapa de decisores</h3>
+  <p>En una empresa no decide “la empresa”: deciden personas, y cada una juega un rol distinto. Antes de vender hay que <b>dibujar quién es quién</b>. Ignorar a uno de estos roles es la causa más común de ventas que se caen en el último momento.</p>
+  <div class="grid g2">
+    <div class="card"><h4 class="dotP">Usuario</h4><p>Quien va a convivir día a día con la solución. Siente el problema en carne propia. <b>Nos importa</b> porque, si le mejora la vida, se convierte en nuestro mejor defensor adentro.</p></div>
+    <div class="card"><h4 class="dotS">Influenciador</h4><p>No decide, pero su opinión pesa: un referente técnico, un asesor, alguien de confianza del dueño. <b>Nos importa</b> porque puede abrir o cerrar la puerta sin estar en la reunión final.</p></div>
+    <div class="card"><h4 class="dotC">Decisor</h4><p>Quien elige avanzar con una opción u otra. <b>Nos importa</b> porque es a quien hay que convencer del valor, no solo del producto. Toda la venta apunta, en última instancia, a esta persona.</p></div>
+    <div class="card"><h4 class="dotR">Aprobador económico</h4><p>Quien libera el presupuesto y firma el gasto (muchas veces Finanzas o el dueño). <b>Nos importa</b> porque, aunque el decisor diga que sí, sin su aprobación no hay compra. Le interesa el retorno, no las características.</p></div>
+    <div class="card" style="border-left:4px solid var(--red)"><h4 style="color:var(--red)">Bloqueador</h4><p>Quien tiene motivos para que nada cambie: miedo a perder control, trabajo extra, o un proveedor amigo. <b>Nos importa</b> porque si no lo detectamos y lo neutralizamos, hunde la venta en silencio.</p></div>
+    <div class="card" style="background:var(--bg2)"><h4>Cómo armar el mapa</h4><p>Por cada cuenta importante, anotá quién ocupa cada rol (puede haber varios, o una persona en dos roles). Para cada uno: qué le importa, qué le preocupa y qué mensaje le sirve. Ese mapa guía a quién hablarle y en qué orden.</p></div>
+  </div>
+
+  <!-- 7.5 -->
+  <h3>5 · Descubrimiento de valor</h3>
+  <p>El valor que una empresa ve en una solución no es siempre el mismo, ni siquiera dentro de la misma empresa. Descubrir el valor es <b>entender qué gana cada cliente, en sus términos</b>. Hay cuatro tipos, y casi siempre conviven varios.</p>
+  <div class="grid g4">
+    <div class="card"><h4 class="dotS">Valor económico</h4><p>Plata concreta: ahorro, recupero, mayor ingreso, menor costo. Es el más fácil de mostrar y el que más pesa en Finanzas. Se cuantifica (ver caso de negocio, sección 13).</p></div>
+    <div class="card"><h4 class="dotP">Valor operativo</h4><p>Menos trabajo, menos errores, más tiempo, procesos más simples. Le importa a quien sufre la operación todos los días.</p></div>
+    <div class="card"><h4 class="dotC">Valor estratégico</h4><p>Ayuda a la empresa a crecer, profesionalizarse, cumplir una norma o competir mejor. Le importa a la dirección y a quien piensa en el largo plazo.</p></div>
+    <div class="card"><h4 class="dotR">Valor emocional</h4><p>Tranquilidad, seguridad, dormir sin preocuparse por un riesgo o por “quedar expuesto”. No aparece en una planilla, pero muchas veces es lo que cierra la venta.</p></div>
+  </div>
+  <div class="guide"><div class="gh">Cómo descubrir el valor de cada cliente</div><p>Se descubre <b>preguntando y escuchando</b>, no suponiendo. La pregunta madre es: <b>“Si esto se resolviera, ¿qué cambiaría para vos y para la empresa?”</b>. La respuesta dice qué tipo de valor le importa más a esa persona, y con eso se arma el mensaje. A un Finanzas se le habla de valor económico; a un dueño agobiado, muchas veces de valor emocional y operativo.</p></div>
+
+  <!-- 7.6 -->
+  <h3>6 · Priorización comercial</h3>
+  <p>Con el mercado segmentado y los clientes evaluados, hay que decidir <b>a quién atacar primero</b>. La priorización combina dos cosas: <b>qué tan atractiva</b> es la cuenta (el puntaje de evaluación del punto 3) y <b>qué tan accesible</b> es (qué tan fácil es llegar y cerrar). Se ordena con un sistema de puntuación simple.</p>
+  <div class="scrollx"><table class="tbl center">
+    <tr><th style="text-align:left">Prioridad</th><th>Puntaje de evaluación (5–25)</th><th>Acceso / probabilidad de cierre</th><th>Qué se hace con esa cuenta</th></tr>
+    <tr><td style="text-align:left"><span class="pill res">Alta</span></td><td>19 a 25</td><td>Medio o alto</td><td>Foco principal. Esfuerzo personalizado, varios contactos, seguimiento intensivo.</td></tr>
+    <tr><td style="text-align:left"><span class="pill adv">Media</span></td><td>12 a 18</td><td>Cualquiera</td><td>Se trabaja con método pero sin sobreinvertir. Secuencias estándar y seguimiento regular.</td></tr>
+    <tr><td style="text-align:left"><span class="pill act">Baja</span></td><td>5 a 11</td><td>Cualquiera</td><td>Esfuerzo mínimo o automatizado. Se atiende si llega, no se persigue.</td></tr>
+  </table></div>
+  <div class="note warn"><b>Ojo con dos trampas.</b> Una cuenta muy atractiva pero imposible de acceder no es prioridad alta: es un deseo. Y una cuenta fácil pero de bajo valor consume tiempo que merecen las buenas. <b>Prioridad alta = atractiva Y alcanzable.</b> Revisá siempre las dos cosas juntas.</div>
+
+  <!-- 7.7 -->
+  <h3>7 · Eventos disparadores</h3>
+  <p>Un evento disparador es <b>algo que le pasa a una empresa y que dispara o aumenta la necesidad de comprar</b>. Contactar justo cuando ocurre un disparador multiplica las chances: la empresa pasó de “no me interesa” a “esto es urgente”. El arte está en detectarlos a tiempo.</p>
+  <div class="grid g2">
+    <div class="card"><h4>Tipos de eventos disparadores</h4><ul><li><b>De crecimiento:</b> abren sedes, suman mucho personal, ganan un contrato grande.</li><li><b>De cambio interno:</b> nuevo dueño, nuevo gerente, reestructuración, fusión.</li><li><b>De presión externa:</b> una inspección, una auditoría, un cambio de ley, un competidor que avanza.</li><li><b>De dolor visible:</b> un problema que se hizo público, un reclamo, una pérdida fuerte.</li></ul></div>
+    <div class="card"><h4>Cómo detectarlos</h4><ul><li><b>Señales en redes profesionales:</b> nuevas búsquedas de empleo, cambios de cargo, anuncios de la empresa.</li><li><b>Noticias del sector</b> y de cada empresa objetivo.</li><li><b>Cambios regulatorios</b> que afectan a un rubro entero a la vez.</li><li><b>La propia red:</b> clientes y aliados que cuentan lo que pasa en el mercado.</li></ul></div>
+  </div>
+  <div class="guide green"><div class="gh">Cómo aprovecharlos</div><p>Cuando detectás un disparador, el contacto se vuelve oportuno y natural: <b>“Vi que [pasó tal cosa]; en empresas en esa situación suele aparecer [tal necesidad]”</b>. Ya no interrumpís: llegás en el momento justo, hablando de algo que al cliente le está pasando ahora.</p></div>
+
+  <!-- 7.8 -->
+  <h3>8 · Construcción de hipótesis comerciales</h3>
+  <p>Una hipótesis comercial es <b>una suposición razonable, hecha antes de la reunión, sobre qué problema probablemente tiene el cliente</b>. No es una certeza: es un punto de partida informado que se confirma o se descarta charlando. Llegar con una hipótesis convierte una reunión de “contame qué hacés” en una conversación valiosa desde el minuto uno.</p>
+  <div class="guide"><div class="gh">La fórmula de una hipótesis</div><p>Se arma cruzando lo que ya sabés del cliente con los patrones del segmento: <b>“Como [Empresa] es [segmento] y [tiene tal característica o pasó tal evento], es probable que tenga [problema], que suele costarle [impacto].”</b></p></div>
+  <div class="note"><b>Ejemplo del método.</b> “Como esta empresa es mediana, de un sector que crece rápido y acaba de sumar mucho personal, es probable que su gestión de personas haya quedado corta y eso le esté generando desorden y costos que todavía no mide.” Esa hipótesis se lleva a la reunión y se valida con preguntas (sección 11). Si era cierta, ganaste autoridad; si no, ajustás y seguís escuchando.</div>
+  <ul>
+    <li>Una buena hipótesis es <b>específica</b> (no “tienen problemas de gestión”, sino cuál) y <b>falsable</b> (se puede confirmar o descartar).</li>
+    <li>Se construye con la investigación previa (sección 8) y el conocimiento del segmento.</li>
+    <li><b>Nunca se presenta como verdad absoluta:</b> se ofrece como “lo que solemos ver” y se valida preguntando. El cliente corrige, y ahí aparece el dolor real.</li>
+  </ul>
+
+  <!-- 7.9 -->
+  <h3>9 · Revisión periódica</h3>
+  <p>El mercado se mueve: empresas crecen, segmentos pierden atractivo, aparecen disparadores nuevos. Por eso la arquitectura comercial <b>no se arma una vez y se olvida</b>: se revisa cada seis meses para que las prioridades sigan apuntando donde está el valor.</p>
+  <div class="scrollx"><table class="tbl">
+    <tr><th style="width:30%">Qué se revisa cada 6 meses</th><th>Pregunta de control</th></tr>
+    <tr><td><b>Los segmentos</b></td><td>¿Siguen siendo útiles, o el mercado cambió y hay que redefinirlos?</td></tr>
+    <tr><td><b>La evaluación de cuentas</b></td><td>¿Las cuentas que marcamos como atractivas resultaron serlo? ¿Qué aprendimos de las que cerraron y las que no?</td></tr>
+    <tr><td><b>Las prioridades</b></td><td>¿Estamos poniendo el mejor esfuerzo donde más rinde, o nos dispersamos?</td></tr>
+    <tr><td><b>Los disparadores</b></td><td>¿Aparecieron eventos o señales nuevas que deberíamos estar vigilando?</td></tr>
+    <tr><td><b>Las estrategias por segmento</b></td><td>¿El mensaje y el abordaje de cada segmento siguen funcionando, o hay que ajustarlos?</td></tr>
+  </table></div>
+  <div class="guide amber"><div class="gh">Estrategias diferenciadas por segmento</div><p>El producto de toda esta sección es que <b>cada segmento se trabaja distinto</b>: distinto mensaje, distinto canal, distinto nivel de esfuerzo y distinta hipótesis. Un segmento maduro y de alto valor merece un abordaje personalizado y paciente; uno chico y de bajo valor, un abordaje liviano y automatizado. Revisar cada seis meses asegura que esas estrategias sigan alineadas con la realidad del mercado, y no con cómo era el mercado el semestre pasado.</p></div>
+</section>
+
+<!-- 8 PROSPECCION -->
+<section class="sec reveal" id="prospeccion">
+  <div class="kicker">Prospectar · 8</div><h2>Sistema de prospectación desde cero</h2>
+  <p class="lead">Prospectar es salir a buscar empresas que todavía no nos conocen y empezar una conversación. Es el corazón del nuevo sistema: la única actividad que <b>llena el embudo sin depender de recomendaciones</b>. Este capítulo explica el método completo, paso por paso, como para alguien que nunca prospectó.</p>
+
+  <h3>Paso 1 · Armar la lista de empresas objetivo</h3>
+  <p>Una lista de empresas objetivo es una planilla con las empresas que encajan con el cliente ideal (sección 5). No se prospecta “a cualquiera”: se trabaja una lista pensada.</p>
+  <div class="guide"><div class="gh">Cómo armar la lista</div><ol>
+    <li>Definí el <b>filtro</b>: tamaño (15–200 empleados para PyME, 200+ para grandes), rubro (servicios, tecnología, salud, comercio, logística, industria con terceros) y zona.</li>
+    <li>Buscá las empresas en <b>LinkedIn</b> (buscador de empresas por sector y tamaño), <b>cámaras y asociaciones</b> del rubro, <b>directorios de proveedores</b> y la cartera de <b>aliados</b> (contadores, brokers).</li>
+    <li>Cargá cada empresa en la planilla con: nombre, rubro, tamaño aproximado, zona y por qué encaja (qué dolor probable tiene).</li>
+    <li>Empezá con <b>una lista chica y buena</b>: 30 a 50 empresas bien elegidas valen más que 500 al azar.</li>
+  </ol></div>
+
+  <h3>Paso 2 · Investigar la empresa antes de contactarla</h3>
+  <p>Contactar sin investigar quema el contacto. Cinco minutos de investigación cambian todo: permiten escribir un mensaje que parece pensado para esa empresa y no un mensaje en serie.</p>
+  <div class="guide green"><div class="gh">Qué mirar en 5 minutos</div><ul>
+    <li><b>Web y LinkedIn de la empresa:</b> qué hace, cuántos empleados, si está creciendo (publican búsquedas de empleo, abren sucursales).</li>
+    <li><b>Señales de dolor:</b> mucha rotación (muchas búsquedas abiertas), usa contratistas, tuvo novedades, creció rápido.</li>
+    <li><b>Noticias del rubro:</b> cambios de ley, presión de costos, inspecciones.</li>
+    <li>Anotá <b>un dato puntual</b> para usar en el primer mensaje. Ese dato es la diferencia entre “lo leyó y respondió” y “lo borró”.</li>
+  </ul></div>
+
+  <h3>Paso 3 · Encontrar a los decisores</h3>
+  <p>Hay que llegar a <b>quien decide</b>, no a cualquier contacto. En la PyME, el dueño o gerente general. En la grande, las cuatro áreas (RRHH, Finanzas, Compras, Legales).</p>
+  <ul>
+    <li>Usá el buscador de personas de <b>LinkedIn</b> filtrando por empresa y cargo (“Gerente de RRHH”, “Director de Finanzas”, “Gerente General”).</li>
+    <li>En empresas grandes, identificá a <b>tres o cuatro personas</b> distintas: vas a tocar la cuenta por varios lados.</li>
+    <li>Conseguí el <b>correo</b> (con buscadores de contacto profesional) o el <b>teléfono</b> de la empresa para llegar por más de un canal.</li>
+  </ul>
+
+  <h3>Paso 4 · Los tres canales para contactar</h3>
+  <div class="grid g3">
+    <div class="card"><h4 class="dotC">LinkedIn</h4><p>El mejor para empezar. Primero <b>conectás</b> (sin vender), aportás algo de valor (un comentario, un dato) y recién después mandás el mensaje. Sirve para PyME y para empresas grandes. Los guiones están en la sección 10.</p></div>
+    <div class="card"><h4 class="dotP">Email</h4><p>Para pedir la reunión con un mensaje corto y personalizado en la primera línea. Funciona en secuencia: un primer correo, un segundo a los 3–4 días y un tercero de cierre. Plantillas listas en la sección 10.</p></div>
+    <div class="card"><h4 class="dotS">Teléfono</h4><p>El más directo y el más evitado. Una llamada corta, con un motivo claro y una sola pregunta (“¿te hago un diagnóstico sin cargo?”), abre puertas que el email no. Guion en la sección 10.</p></div>
+  </div>
+  <div class="note"><b>La combinación gana.</b> Un mismo contacto se trabaja por varios canales a la vez: conectar en LinkedIn, mandar un email con un dato útil y, si no responde, una llamada corta. Tocar por un solo lado casi nunca alcanza.</div>
+
+  <h3>Paso 5 · Hacer seguimiento (acá se gana o se pierde)</h3>
+  <p>La mayoría de las respuestas <b>no llegan en el primer intento</b>. El que abandona después de un mensaje pierde casi todas las oportunidades. El seguimiento es trabajo, no insistencia: cada toque aporta algo (un dato, un caso, una pregunta), no repite “¿viste mi mensaje?”.</p>
+  <div class="guide amber"><div class="gh">Regla de intentos antes de descartar</div><ul>
+    <li>Hacé <b>entre 5 y 7 intentos</b>, repartidos en 2 a 3 semanas, combinando canales (LinkedIn + email + teléfono).</li>
+    <li>Dejá <b>3 a 4 días hábiles</b> entre toque y toque. Mejor martes a jueves, temprano.</li>
+    <li>Si después de 5–7 intentos no hay ninguna señal, <b>pasá el contacto a “dormido”</b> y recontactalo a los 3 meses (guion en sección 10). No se descarta para siempre: se enfría.</li>
+    <li>Si hay una respuesta, aunque sea “ahora no”, <b>no es un no</b>: es un seguimiento con fecha.</li>
+  </ul></div>
+
+  <h3>Paso 6 · Qué registrar en cada contacto</h3>
+  <p>Lo que no se registra, no existe. Cada contacto se carga en el sistema (CRM) para que el seguimiento no dependa de la memoria de nadie.</p>
+  <div class="scrollx"><table class="tbl">
+    <tr><th>Dato a registrar</th><th>Para qué sirve</th></tr>
+    <tr><td><b>Empresa, contacto y cargo</b></td><td>Saber con quién hablamos y si es quien decide.</td></tr>
+    <tr><td><b>Canal y fecha de cada toque</b></td><td>Saber por dónde y cuándo se contactó, para no repetir ni abandonar.</td></tr>
+    <tr><td><b>Qué se dijo y qué respondió</b></td><td>Que cualquiera pueda retomar la conversación sin empezar de cero.</td></tr>
+    <tr><td><b>Próximo paso con fecha</b></td><td>Lo más importante: ninguna oportunidad sin una próxima acción agendada.</td></tr>
+    <tr><td><b>Origen</b> (recomendación, contacto directo, contenido, aliado)</td><td>Saber qué canal trae los mejores clientes.</td></tr>
+  </table></div>
+
+  <h3>Ejemplo práctico, de principio a fin</h3>
+  <div class="guide"><div class="gh">Cómo se ve una prospección bien hecha</div><ol>
+    <li><b>Lista:</b> una empresa de logística de 80 empleados que publicó 6 búsquedas de chofer en un mes (señal: rotación alta).</li>
+    <li><b>Investigación:</b> en su LinkedIn se ve que crece y usa transportistas tercerizados (señal de Risk, Art. 30).</li>
+    <li><b>Decisores:</b> el gerente general (decide) y la responsable de RRHH (siente el dolor).</li>
+    <li><b>Contacto:</b> conecto en LinkedIn con RRHH mencionando la rotación; al gerente le mando un email sobre el costo de reemplazar choferes.</li>
+    <li><b>Seguimiento:</b> sin respuesta al 4º día, segundo email con un dato del sector; al 8º día, llamada corta ofreciendo el diagnóstico sin cargo.</li>
+    <li><b>Resultado:</b> RRHH responde, agenda una reunión. Se carga todo en el sistema con el próximo paso: “Reunión jueves 10 h”.</li>
+  </ol></div>
+</section>
+
+<!-- 8 RUTINA -->
+<section class="sec reveal" id="rutina">
+  <div class="kicker">Prospectar · 9</div><h2>Rutina diaria y semanal de prospectación</h2>
+  <p class="lead">La prospección funciona cuando es <b>hábito, no campaña</b>. Si depende de “cuando hay tiempo”, no pasa nunca. Por eso se fijan metas mínimas por persona y un ritmo diario. Estas cifras son un punto de partida para una PyME; dirección las ajusta según la realidad de cada manager y unidad.</p>
+
+  <h3>Metas mínimas por persona</h3>
+  <div class="scrollx"><table class="tbl center">
+    <tr><th style="text-align:left">Actividad</th><th>Por día</th><th>Por semana</th><th>Qué cuenta como hecho</th></tr>
+    <tr><td><b>Empresas nuevas investigadas</b></td><td>4</td><td>20</td><td>Cargada en el sistema con su dato de dolor.</td></tr>
+    <tr><td><b>Contactos nuevos identificados</b> (decisores)</td><td>4</td><td>20</td><td>Con nombre, cargo y dato de contacto.</td></tr>
+    <tr><td><b>Mensajes enviados</b> (LinkedIn + email)</td><td>8</td><td>40</td><td>Personalizados, no copiados tal cual.</td></tr>
+    <tr><td><b>Llamadas realizadas</b></td><td>3</td><td>15</td><td>Marcadas, con o sin respuesta.</td></tr>
+    <tr><td><b>Seguimientos hechos</b></td><td>5</td><td>25</td><td>Toque que aporta algo, no “¿lo viste?”.</td></tr>
+    <tr><td><b>Reuniones generadas</b></td><td>—</td><td>2 a 3</td><td>Reunión confirmada con quien decide.</td></tr>
+  </table></div>
+  <div class="note"><b>Cómo leer la meta.</b> El número final de cada semana es la <b>reunión</b>: todo lo demás (investigar, contactar, seguir) existe para que aparezcan esas 2 o 3 reuniones. Si las reuniones no salen, se revisa la actividad de arriba para ver qué falló.</div>
+
+  <h3>El día comercial, hora por hora</h3>
+  <div class="agenda">
+    <div class="arow"><div class="at">09:00</div><div class="ad"><b>Bloque de prospección (1 h).</b> Lo primero del día, sin interrupciones: investigar empresas nuevas y enviar los mensajes del día. La energía va a lo que llena el embudo.</div></div>
+    <div class="arow"><div class="at">10:00</div><div class="ad"><b>Seguimientos (30 min).</b> Revisar el sistema: a quién toca tocar hoy. Mandar los seguimientos con fecha vencida.</div></div>
+    <div class="arow"><div class="at">11:00</div><div class="ad"><b>Reuniones / diagnósticos.</b> La franja del medio del día para las reuniones agendadas.</div></div>
+    <div class="arow"><div class="at">15:00</div><div class="ad"><b>Llamadas (30 min).</b> Bloque de teléfono: contactos nuevos y seguimientos que conviene hacer por voz.</div></div>
+    <div class="arow"><div class="at">16:00</div><div class="ad"><b>Propuestas y carga (1 h).</b> Armar propuestas pendientes y dejar todo cargado en el sistema antes de irse: cada contacto con su próximo paso.</div></div>
+    <div class="arow"><div class="at">17:30</div><div class="ad"><b>Cierre del día (10 min).</b> ¿Quedó algún contacto sin próximo paso? Si la respuesta es no, el día está cerrado.</div></div>
+  </div>
+
+  <h3>La semana comercial</h3>
+  <div class="scrollx"><table class="tbl mono">
+    <tr><th style="width:18%">Día</th><th>Foco</th></tr>
+    <tr><td>Lunes</td><td>Reunión semanal de equipo (sección 17) + armar la lista de empresas a trabajar en la semana.</td></tr>
+    <tr><td>Martes a jueves</td><td>Días fuertes de contacto y reuniones: la gente responde mejor. Prospección + reuniones + seguimientos.</td></tr>
+    <tr><td>Viernes</td><td>Cierre de propuestas, carga completa del sistema y preparación de la semana siguiente.</td></tr>
+  </table></div>
+  <div class="guide green"><div class="gh">La disciplina es del manager, no del ánimo</div><p>Prospectar nunca “tiene ganas”: siempre hay algo más urgente. Por eso el bloque de las 9 es <b>sagrado e innegociable</b>. La diferencia entre un equipo que crece y uno que no, casi siempre es esa hora de la mañana sostenida todos los días.</p></div>
+</section>
+
+<!-- 9 GUIONES -->
+<section class="sec reveal" id="guiones">
+  <div class="kicker">Prospectar · 10</div><h2>Guiones comerciales (listos para usar)</h2>
+  <p class="lead">Los textos exactos para cada momento del contacto. Reemplazá lo que está entre corchetes y tocá <b>Copiar</b>. Son guiones base: la primera línea siempre se personaliza con el dato que investigaste. Elegí la situación con los botones.</p>
+
+  <div class="tabs" data-tabs="g">
+    <button class="tab on" data-t="g-li">LinkedIn</button>
+    <button class="tab" data-t="g-mail">Correos</button>
+    <button class="tab" data-t="g-call">Llamada</button>
+    <button class="tab" data-t="g-post">Post-reunión y propuesta</button>
+    <button class="tab" data-t="g-rec">Dormido y referido</button>
+  </div>
+
+  <div class="panel on" data-g="g" id="g-li">
+    <div class="script s-li"><button class="copy">Copiar</button><div class="sm">LinkedIn · Mensaje inicial (al conectar)</div><div class="sh">Conexión sin vender</div><div class="sb"><p>Hola [Nombre], vi que en [Empresa] [dato concreto: están creciendo el equipo / trabajan con varios contratistas / abrieron una nueva sede]. Trabajo con empresas del rubro en [tema: ordenar RRHH / bajar el costo de salud / control de terceros] y me gustaría seguir lo que hacen. ¿Te sumo a mi red?</p><p><em>Clave: no se pide reunión todavía. Primero se conecta y se aporta.</em></p></div></div>
+    <div class="script s-li"><button class="copy">Copiar</button><div class="sm">LinkedIn · Segundo mensaje (ya conectados)</div><div class="sh">Aportar y abrir la puerta</div><div class="sb"><p>Gracias por conectar, [Nombre]. Te comento por qué te escribí: en empresas como [Empresa] solemos encontrar [dolor: rotación que nadie mide / cobertura que se factura de más / proveedores sin control documentado], y eso suele costar más plata de la que parece.</p><p>Lo vemos sin compromiso en un diagnóstico sin cargo. Si no encontramos valor, no hay nada que cambiar. ¿Te interesa que coordinemos 20 minutos?</p></div></div>
+  </div>
+
+  <div class="panel" data-g="g" id="g-mail">
+    <div class="grid g2">
+      <div class="script s-mail"><button class="copy">Copiar</button><div class="sm">Correo 1 · El problema</div><div class="sh">¿[Dolor del cliente]?</div><div class="sb"><p>Hola [Nombre], en empresas como [Empresa] suele pasar que [describir el dolor en una línea, con el dato que investigaste].</p><p>En KLOVER lo resolvemos [solución en una línea], operando nosotros, sin que tu equipo sume trabajo.</p><p>¿Te muestro en 30 minutos cómo se vería en [Empresa]? La primera charla es un diagnóstico sin cargo.</p></div></div>
+      <div class="script s-mail"><button class="copy">Copiar</button><div class="sm">Correo 2 · El valor (a los 3–4 días)</div><div class="sh">El costo oculto de no resolverlo</div><div class="sb"><p>[Nombre], te escribo de nuevo con un dato: [número concreto del dolor — ej.: reemplazar a una persona cuesta entre 1 y 2 sueldos anuales / suele recuperarse X% de la cobertura].</p><p>La mayoría de las empresas no lo mide… y lo paga igual. Nosotros lo ordenamos y lo bajamos.</p><p>¿Tenés 15 minutos esta semana para verlo con tus números?</p></div></div>
+      <div class="script s-mail"><button class="copy">Copiar</button><div class="sm">Correo 3 · El cierre (a los 3–4 días)</div><div class="sh">¿Lo dejamos para más adelante?</div><div class="sb"><p>[Nombre], no quiero insistir de gusto. Si hoy no es momento, te dejo a mano el diagnóstico sin cargo para cuando lo necesites.</p><p>¿Lo agendamos tentativo para [mes]? Y si preferís cerrar el tema, respondé “ahora no” y listo.</p><p><em>Clave: este correo, el que “cierra el tema”, suele ser el que más respuestas trae.</em></p></div></div>
+      <div class="script s-mail" style="background:var(--bg2)"><div class="sm">Buenas prácticas de correo</div><div class="sb"><ul style="margin-top:4px"><li>Personalizá solo la primera línea, no todo el correo.</li><li>Un solo pedido por correo.</li><li>Texto simple, de persona a persona, sin diseño recargado.</li><li>Enviá de martes a jueves, temprano; seguí cada 3–4 días hábiles.</li><li>Asunto corto y concreto, sin promesas exageradas.</li></ul></div></div>
+    </div>
+  </div>
+
+  <div class="panel" data-g="g" id="g-call">
+    <div class="script s-call"><button class="copy">Copiar</button><div class="sm">Teléfono · Llamada inicial</div><div class="sh">Llamada corta con un solo objetivo</div><div class="sb"><p><b>Apertura (10 segundos):</b> “Hola [Nombre], soy [tu nombre] de KLOVER. ¿Te agarro 30 segundos? Te llamo por un tema puntual, después me decís si te sirve seguir.”</p><p><b>Motivo (con el dato):</b> “Trabajamos con empresas como [Empresa] en [tema]. En casi todas encontramos [dolor concreto], que suele costar más de lo que parece.”</p><p><b>La única pregunta:</b> “La idea es hacerte un diagnóstico sin cargo para ver si pasa en [Empresa]. ¿Coordinamos 20 minutos esta semana?”</p><p><b>Si dice que no es momento:</b> “Sin problema. ¿Te puedo escribir en [mes] para retomarlo?” (y se agenda).</p><p><em>Clave: hablar poco, ofrecer algo sin riesgo (el diagnóstico), y pedir solo la reunión, no la venta.</em></p></div></div>
+  </div>
+
+  <div class="panel" data-g="g" id="g-post">
+    <div class="grid g2">
+      <div class="script s-follow"><button class="copy">Copiar</button><div class="sm">Después de una reunión</div><div class="sh">Resumen y próximo paso</div><div class="sb"><p>Hola [Nombre], gracias por la charla. Te resumo lo que hablamos: detectamos [problema concreto] y vimos que podría representar [impacto en plata estimado].</p><p>El próximo paso que acordamos es [acción: enviarte la propuesta / hacer el diagnóstico exprés] para el [fecha].</p><p>Cualquier duda, quedo a mano. Hablamos el [fecha del próximo contacto].</p></div></div>
+      <div class="script s-follow"><button class="copy">Copiar</button><div class="sm">Seguimiento de propuesta</div><div class="sh">Mover la propuesta sin presionar</div><div class="sb"><p>[Nombre], ¿pudiste ver la propuesta que te pasé el [fecha]? Quería saber si quedó clara la parte de [el punto clave: alcance / recupero a resultado].</p><p>Si te sirve, lo charlamos 10 minutos y ajustamos lo que haga falta. ¿Te viene bien el [día] a las [hora]?</p></div></div>
+    </div>
+  </div>
+
+  <div class="panel" data-g="g" id="g-rec">
+    <div class="grid g2">
+      <div class="script s-ref"><button class="copy">Copiar</button><div class="sm">Recontacto de cliente dormido</div><div class="sh">Volver después de meses, sin que sea raro</div><div class="sb"><p>Hola [Nombre], hace un tiempo charlamos sobre [tema] y quedó para más adelante. Te escribo porque [novedad/gancho: cambió la ley / lanzamos algo / suele ser época de auditorías].</p><p>¿Sigue siendo un tema en [Empresa]? Si querés, te actualizo el diagnóstico sin cargo y vemos cómo está hoy.</p></div></div>
+      <div class="script s-ref"><button class="copy">Copiar</button><div class="sm">Pedido de referido</div><div class="sh">Convertir un cliente contento en recomendaciones</div><div class="sb"><p>[Nombre], me alegra que estés conforme con [resultado logrado]. Justo estamos sumando empresas parecidas a [Empresa].</p><p>¿Se te ocurre algún colega o empresa a la que le pueda servir lo que hacemos? Con que me pases el nombre alcanza; yo me encargo del resto, con tu permiso.</p><p><em>Clave: se pide después de un resultado concreto, y se pide algo fácil (un nombre), no un favor grande.</em></p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 PRIMERA REUNION -->
+<section class="sec reveal" id="reunion">
+  <div class="kicker">Vender · 11</div><h2>La primera reunión comercial</h2>
+  <p class="lead">La reunión no es para hablar de KLOVER: es para <b>entender al cliente y encontrar su dolor</b>. La regla de oro es hablar poco y escuchar mucho. Quien más pregunta, más vende.</p>
+
+  <h3>Cómo prepararla</h3>
+  <ul>
+    <li><b>Investigá de nuevo</b> la empresa el día previo: tamaño, rubro, novedades, señales de dolor (sección 8).</li>
+    <li><b>Anticipá el dolor probable</b> según la unidad y prepará 2 o 3 preguntas para confirmarlo.</li>
+    <li><b>Definí tu objetivo de la reunión:</b> casi nunca es vender; es <b>conseguir el próximo paso</b> (un diagnóstico, una propuesta, otra reunión con quien decide).</li>
+    <li>Tené a mano un caso parecido y el dato del impacto económico típico de ese dolor.</li>
+  </ul>
+
+  <h3>Agenda modelo de reunión (45 minutos)</h3>
+  <div class="agenda">
+    <div class="arow"><div class="at">0–5</div><div class="ad"><b>Romper el hielo y encuadrar.</b> Breve presentación y acordar el plan: “Te propongo que primero me cuentes cómo trabajan hoy, después te muestro dónde solemos aportar y cerramos con un próximo paso. ¿Te parece?”</div></div>
+    <div class="arow"><div class="at">5–20</div><div class="ad"><b>Entender y preguntar.</b> El cliente habla. Cómo hacen las cosas hoy, qué les funciona y qué no. Acá se descubre el dolor real.</div></div>
+    <div class="arow"><div class="at">20–30</div><div class="ad"><b>Cuantificar el impacto.</b> Ponerle un número al dolor: cuánto cuesta hoy ese problema (rotación, plata que se va en salud, exposición a un juicio).</div></div>
+    <div class="arow"><div class="at">30–40</div><div class="ad"><b>Mostrar cómo se vería resuelto.</b> Recién acá se habla de KLOVER, y solo de lo que resuelve ese dolor puntual. Nada de mostrar todo el catálogo.</div></div>
+    <div class="arow"><div class="at">40–45</div><div class="ad"><b>Cerrar con próximo paso concreto.</b> Acordar qué sigue y cuándo, con fecha: “Te preparo la propuesta para el jueves y la repasamos el viernes a las 10. ¿Te va?”</div></div>
+  </div>
+
+  <h3>Las preguntas que hacen aparecer el dolor</h3>
+  <div class="guide"><div class="gh">Preguntar para entender, no para vender</div><ol>
+    <li><b>Cómo hacen hoy:</b> “¿Cómo manejan hoy [el tema: la rotación / la cobertura / el control de proveedores]?”</li>
+    <li><b>Qué los molesta:</b> “¿Qué es lo que más tiempo o dolores de cabeza les da de eso?”</li>
+    <li><b>Cuánto pesa:</b> “¿Tienen idea de cuánto les cuesta eso por mes/año?” (si no lo saben, es una oportunidad).</li>
+    <li><b>Qué pasa si no se resuelve:</b> “Si esto sigue igual los próximos 12 meses, ¿qué pasa?”</li>
+    <li><b>Quién decide:</b> “Además de vos, ¿quién más mira este tema cuando se decide avanzar?”</li>
+  </ol></div>
+
+  <h3>Cómo cuantificar el impacto económico</h3>
+  <p>Cuantificar es ponerle un número al problema para que el cliente vea que <b>nuestro honorario es menor que lo que pierde</b>. Sin número, la venta compite por precio; con número, compite por retorno.</p>
+  <div class="scrollx"><table class="tbl">
+    <tr><th>Unidad</th><th>Cómo poner el número en la reunión</th></tr>
+    <tr><td><b class="dotP">People</b></td><td>“Reemplazar a una persona cuesta entre 1 y 2 veces su sueldo anual. Con [X] bajas al año, el costo de la rotación es de [monto].”</td></tr>
+    <tr><td><b class="dotS">Salud</b></td><td>“En empresas como la tuya solemos encontrar [X]% de la cobertura recuperable o mal imputada. Sobre tu gasto, serían [monto] al año.”</td></tr>
+    <tr><td><b class="dotR">Risk</b></td><td>“Un solo reclamo por Art. 30 puede costar [monto] entre sueldos, aportes y costas. Controlar a tus terceros cuesta una fracción de eso.”</td></tr>
+  </table></div>
+  <div class="note"><b>Cómo cerrar la reunión.</b> Nunca termines con “te mando información y vemos”. Siempre cerrá con un <b>próximo paso con fecha y responsable</b>: una propuesta para tal día, un diagnóstico, otra reunión. Sin próximo paso, la oportunidad se enfría sola.</div>
+</section>
+
+<!-- 11 OPORTUNIDADES -->
+<section class="sec reveal" id="oportunidades">
+  <div class="kicker">Vender · 12</div><h2>Gestión de oportunidades</h2>
+  <p class="lead">Una oportunidad es una empresa objetivo donde ya hay un problema detectado e interés en resolverlo. Gestionarlas es <b>saber en qué etapa está cada una, qué hace falta para avanzarla y nunca dejarla sin próximo paso</b>. Al conjunto de oportunidades abiertas y su etapa se lo suele llamar <span class="term" title="Pipeline: la lista de oportunidades abiertas y la etapa de cada una.">embudo</span> (o, en inglés, “pipeline”).</p>
+
+  <h3>Las siete etapas de una oportunidad</h3>
+  <div class="kanban">
+    <div class="kcol"><div class="kh">1 · Posible</div><div class="kb">Encaja con el cliente ideal. Cargada en el sistema.</div></div>
+    <div class="kcol"><div class="kh">2 · Contactado</div><div class="kb">Respondió o interactuó. Secuencia iniciada.</div></div>
+    <div class="kcol"><div class="kh">3 · Reunión</div><div class="kb">Aceptó reunirse. Agenda y guion listos.</div></div>
+    <div class="kcol"><div class="kh">4 · Diagnóstico</div><div class="kb">Confirmamos el dolor y su tamaño.</div></div>
+    <div class="kcol"><div class="kh">5 · Propuesta</div><div class="kb">Propuesta enviada, con precio validado.</div></div>
+    <div class="kcol"><div class="kh">6 · Negociación</div><div class="kb">Se resuelven dudas y condiciones.</div></div>
+    <div class="kcol"><div class="kh">7 · Cliente</div><div class="kb">Firma. Pase a Operaciones.</div></div>
+  </div>
+
+  <h3>Cuándo una oportunidad avanza de etapa</h3>
+  <p>Una oportunidad <b>no avanza porque pasó el tiempo</b>, sino porque se cumplió una condición clara. Esto evita el autoengaño de creer que una venta está “casi cerrada” cuando no lo está.</p>
+  <div class="scrollx"><table class="tbl">
+    <tr><th>Pasa a…</th><th>Solo cuando…</th><th>Qué queda registrado</th></tr>
+    <tr><td><b>Contactado</b></td><td>El decisor respondió o interactuó.</td><td>Fecha y contenido del primer ida y vuelta.</td></tr>
+    <tr><td><b>Reunión</b></td><td>Hay una reunión confirmada con fecha.</td><td>Fecha, participantes y objetivo.</td></tr>
+    <tr><td><b>Diagnóstico</b></td><td>Confirmamos el dolor y estimamos su tamaño.</td><td>Hallazgos y oportunidad económica estimada.</td></tr>
+    <tr><td><b>Propuesta</b></td><td>Operaciones y precio están validados y se envió.</td><td>Propuesta, monto y fecha de envío.</td></tr>
+    <tr><td><b>Negociación</b></td><td>El cliente mostró interés concreto y discute condiciones.</td><td>Objeciones, ajustes y fecha de decisión esperada.</td></tr>
+    <tr><td><b>Cliente</b></td><td>Firmó o aceptó formalmente.</td><td>Alcance acordado y pase a Operaciones.</td></tr>
+  </table></div>
+
+  <h3>Cuándo se descarta una oportunidad</h3>
+  <p>Descartar a tiempo es tan importante como avanzar. Una oportunidad que no es real ocupa lugar, infla el embudo y hace perder tiempo. Se descarta (o se enfría) cuando:</p>
+  <ul>
+    <li>No encaja con el cliente ideal (tamaño, capacidad de pago, problema real).</li>
+    <li>No logramos hablar con quien decide después de 5–7 intentos.</li>
+    <li>El cliente dice “no” con claridad, o no hay ningún problema que resolver.</li>
+    <li><b>No es ahora pero sí más adelante:</b> no se descarta, se pasa a “dormido” con fecha de recontacto.</li>
+  </ul>
+
+  <h3>Qué información debe cargarse siempre</h3>
+  <div class="guide green"><div class="gh">Mínimos de cada oportunidad en el sistema</div><ul>
+    <li><b>Etapa actual</b> y desde cuándo está en ella.</li>
+    <li><b>Monto estimado</b> de la oportunidad (cuánto facturaría por mes o por proyecto).</li>
+    <li><b>Próximo paso con fecha y responsable.</b> Sin esto, la oportunidad no está gestionada.</li>
+    <li><b>Origen</b> (recomendación, contacto directo, contenido, aliado) y <b>unidad</b> (People, Salud, Risk).</li>
+  </ul></div>
+  <div class="note warn"><b>La regla que más cuesta y más vale.</b> Ninguna oportunidad puede quedar sin <b>próximo paso con fecha</b>. Si una oportunidad no tiene una próxima acción agendada, está muerta aunque parezca viva. En la reunión semanal se revisa justamente eso.</div>
+</section>
+
+<!-- 12 CASO DE NEGOCIO -->
+<section class="sec reveal" id="caso">
+  <div class="kicker">Vender · 13</div><h2>Caso de negocio y justificación económica</h2>
+  <p class="lead">Este capítulo es una guía práctica para que cualquier manager de KLOVER pueda construir un caso de negocio profesional sin ayuda externa. Un caso de negocio es la herramienta que convierte un diagnóstico en una venta: transforma “tenés un problema” en “este problema te cuesta tanto, y resolverlo te conviene por esto”. Está escrito para managers que nunca armaron uno. Todos los números que aparecen son <b>ilustrativos</b>: en la práctica se validan con los datos reales del cliente.</p>
+
+  <!-- 12.1 -->
+  <h3>1 · ¿Qué es un caso de negocio?</h3>
+  <p>Un caso de negocio es una explicación corta y con números que muestra <b>cuánto le cuesta a una empresa su problema hoy y cuánto gana si lo resuelve con KLOVER</b>. No habla de nosotros: habla de la plata del cliente. Su única misión es que el cliente vea, en su propio dinero, que no resolver el problema es más caro que contratarnos.</p>
+  <div class="grid g2">
+    <div class="card"><h4 class="dotP">Propuesta comercial</h4><ul><li>Describe <b>qué hacemos</b>, el alcance y el precio.</li><li>Responde: “¿qué me ofrecen y cuánto sale?”.</li><li>Llega <b>después</b>, una vez que el cliente ya quiere resolver el problema.</li></ul></div>
+    <div class="card"><h4 class="dotS">Caso de negocio</h4><ul><li>Describe <b>cuánto cuesta el problema</b> y cuánto se gana al resolverlo.</li><li>Responde: “¿por qué me conviene hacer algo, y por qué ahora?”.</li><li>Llega <b>antes</b>: crea las ganas de comprar que después justifican la propuesta.</li></ul></div>
+  </div>
+  <p>Los clientes compran cuando <b>entienden el impacto económico de su problema</b>. Mientras el problema es una molestia vaga (“tenemos algo de rotación”), nadie paga por arreglarlo. Cuando el problema tiene un número (“la rotación te cuesta $54 millones al año”), aparece la urgencia. Por eso un caso de negocio <b>justifica la inversión</b> (la pone al lado del costo del problema, no sola), <b>reduce las objeciones de precio</b> (el precio deja de compararse contra cero y pasa a compararse contra la pérdida) y <b>mejora la tasa de cierre</b> (el cliente decide con la cabeza, no solo con la confianza).</p>
+  <div class="guide"><div class="gh">Ejemplo de la diferencia</div><p><b>Sin caso de negocio:</b> “Te ofrezco gestión de RRHH por $750.000 por mes.” → El cliente piensa: “es un gasto nuevo”. <b>Con caso de negocio:</b> “Tu rotación te cuesta unos $54 millones al año; bajándola a la mitad ahorrás $21 millones, y el servicio cuesta $9 millones. Ganás $12 millones netos.” → El cliente piensa: “no contratarlos me cuesta plata”.</p></div>
+
+  <!-- 12.2 -->
+  <h3>2 · ¿Por qué es una herramienta comercial clave para KLOVER?</h3>
+  <p>Porque KLOVER vende cosas que el cliente no siempre ve como urgentes hasta que les pone un número. El caso de negocio es lo que nos saca de competir por precio y nos lleva a competir por retorno. Sirve para las tres unidades, y en todas hace lo mismo: <b>pasar de una conversación comercial a una conversación económica</b>.</p>
+  <div class="scrollx"><table class="tbl">
+    <tr><th style="width:14%">Unidad</th><th>Conversación comercial (lo que solía decirse)</th><th>Conversación económica (con caso de negocio)</th></tr>
+    <tr><td><b class="dotP">People</b></td><td>“Te ayudamos a ordenar RRHH y bajar la rotación.”</td><td>“Tus 36 salidas al año cuestan unos $54 millones; bajándolas a la mitad ahorrás $21 millones contra una inversión de $9 millones.”</td></tr>
+    <tr><td><b class="dotS">Salud</b></td><td>“Auditamos tu cobertura y recuperamos plata.”</td><td>“Sobre tu gasto de $48 millones, solemos encontrar un 6% recuperable: unos $2,9 millones, y cobramos solo si recuperamos.”</td></tr>
+    <tr><td><b class="dotR">Risk</b></td><td>“Controlamos a tus contratistas y te protegemos.”</td><td>“Tenés 45 proveedores y 12 sin papeles al día; un solo reclamo por Art. 30 puede costarte $12 millones, y el control anual cuesta una fracción de eso.”</td></tr>
+  </table></div>
+  <div class="guide green"><div class="gh">Cómo pasar de lo comercial a lo económico, en la charla</div><p>Se hace con una sola frase puente, después de detectar el dolor: <b>“¿Te pusieron un número a eso alguna vez?”</b>. Casi siempre la respuesta es no. Ahí se abre la puerta: “Lo estimamos juntos en dos minutos y vemos si vale la pena hacer algo”. Esa estimación es el caso de negocio.</p></div>
+
+  <!-- 12.3 -->
+  <h3>3 · ¿Cuándo debe construirse?</h3>
+  <p>El caso de negocio tiene un lugar exacto en el proceso: <b>después del diagnóstico y antes de la propuesta</b>. Primero se detecta y se mide el dolor (diagnóstico), después se justifica económicamente (caso de negocio) y recién entonces se ofrece la solución con precio (propuesta). Saltearlo es lo que hace que las propuestas compitan por precio.</p>
+  <div class="kanban">
+    <div class="kcol"><div class="kh">Prospectación</div><div class="kb">Conseguir la primera conversación con quien decide.</div></div>
+    <div class="kcol"><div class="kh">Primera reunión</div><div class="kb">Entender cómo trabajan y generar confianza.</div></div>
+    <div class="kcol"><div class="kh">Diagnóstico</div><div class="kb">Confirmar el dolor y recoger los datos para medirlo.</div></div>
+    <div class="kcol" style="outline:3px solid var(--indigo);outline-offset:-3px"><div class="kh" style="background:var(--indigo)">Caso de negocio</div><div class="kb"><b>Ponerle número al problema y justificar la inversión.</b></div></div>
+    <div class="kcol"><div class="kh">Propuesta</div><div class="kb">Ofrecer la solución, el alcance y el precio.</div></div>
+    <div class="kcol"><div class="kh">Negociación</div><div class="kb">Resolver dudas y acordar condiciones.</div></div>
+    <div class="kcol"><div class="kh">Cierre</div><div class="kb">Firma y arranque del servicio.</div></div>
+  </div>
+  <div class="note"><b>Regla de tiempo.</b> No se arma un caso de negocio antes de tener datos del cliente: sin diagnóstico, sería inventar. Y no se pasa a la propuesta sin caso de negocio: sin él, la propuesta es solo un precio.</div>
+
+  <!-- 12.4 -->
+  <h3>4 · Metodología para construir un caso de negocio</h3>
+  <p>Siete pasos, siempre en el mismo orden. Cada paso responde una pregunta del cliente y prepara el siguiente.</p>
+  <div class="tl">
+    <div class="tlitem"><div class="dot"></div><div class="pr">Paso 1</div><div class="ph">Situación actual</div>
+      <div class="tlbox"><div class="row"><div class="k">Qué es</div><div>Describir, con datos, cómo trabaja hoy el cliente: cuántos empleados, cuántos contratistas, cuánto gasta, cómo hace las cosas. Es la foto del punto de partida, sin juicios.</div></div>
+      <div class="row"><div class="k">Para qué</div><div>Que el cliente se reconozca en la descripción y acepte los datos como propios. Si no acepta la foto, no va a aceptar las conclusiones.</div></div></div></div>
+    <div class="tlitem"><div class="dot"></div><div class="pr">Paso 2</div><div class="ph">Problema identificado</div>
+      <div class="tlbox"><div class="row"><div class="k">Qué es</div><div>Nombrar el problema concreto que sale de esa situación: rotación alta, cobertura sin control, contratistas sin papeles. Uno claro, no una lista.</div></div>
+      <div class="row"><div class="k">Para qué</div><div>Enfocar. Un caso de negocio resuelve un problema medible, no “mejorar todo”.</div></div></div></div>
+    <div class="tlitem"><div class="dot"></div><div class="pr">Paso 3</div><div class="ph">Impacto económico</div>
+      <div class="tlbox"><div class="row"><div class="k">Qué es</div><div>Ponerle un número en plata al problema: cuánto cuesta hoy, por año. Se calcula con los datos del paso 1 y supuestos simples y conservadores.</div></div>
+      <div class="row"><div class="k">Para qué</div><div>Es el corazón del caso. Sin número, no hay urgencia. El número siempre se presenta como estimación a validar, no como verdad absoluta.</div></div></div></div>
+    <div class="tlitem"><div class="dot"></div><div class="pr">Paso 4</div><div class="ph">Costo de no hacer nada</div>
+      <div class="tlbox"><div class="row"><div class="k">Qué es</div><div>Mostrar qué pasa si el cliente sigue igual los próximos 12 meses: el problema no se queda quieto, se acumula. Es el impacto del paso 3 proyectado y, si aplica, el riesgo de que algo peor ocurra (un juicio, una inspección).</div></div>
+      <div class="row"><div class="k">Para qué</div><div>Quitar la opción cómoda de “lo veo más adelante”. Esperar también cuesta, y eso hay que mostrarlo.</div></div></div></div>
+    <div class="tlitem"><div class="dot"></div><div class="pr">Paso 5</div><div class="ph">Solución propuesta</div>
+      <div class="tlbox"><div class="row"><div class="k">Qué es</div><div>Recién acá entra KLOVER, y solo con lo que resuelve ese problema puntual. Qué hacemos, cómo y en cuánto tiempo se ven resultados.</div></div>
+      <div class="row"><div class="k">Para qué</div><div>Conectar la solución directamente con el dolor medido. Nada de catálogo completo.</div></div></div></div>
+    <div class="tlitem"><div class="dot"></div><div class="pr">Paso 6</div><div class="ph">Resultado esperado</div>
+      <div class="tlbox"><div class="row"><div class="k">Qué es</div><div>Qué cambia, en números, cuando se resuelve: rotación que baja, plata que se recupera, riesgo que se neutraliza. Siempre con un objetivo medible.</div></div>
+      <div class="row"><div class="k">Para qué</div><div>Que el cliente vea la película de “después” y pueda medirla más adelante.</div></div></div></div>
+    <div class="tlitem"><div class="dot"></div><div class="pr">Paso 7</div><div class="ph">Retorno estimado</div>
+      <div class="tlbox"><div class="row"><div class="k">Qué es</div><div>La comparación final: lo que se gana o ahorra frente a lo que cuesta el servicio. Se dice simple: “por cada peso que invertís, recuperás tres”.</div></div>
+      <div class="row"><div class="k">Para qué</div><div>Cerrar la lógica. Si el retorno es claro y positivo, la decisión se vuelve obvia.</div></div></div></div>
+  </div>
+
+  <!-- 12.5 -->
+  <h3>5 · Preguntas que debe hacer el manager</h3>
+  <p>El caso de negocio se construye con datos del cliente, y los datos se consiguen preguntando. Estas son las preguntas y qué información busca cada una.</p>
+  <div class="scrollx"><table class="tbl">
+    <tr><th style="width:38%">Pregunta</th><th>Qué información busca</th></tr>
+    <tr><td><b>¿Cuántos empleados tienen?</b></td><td>El tamaño base para calcular costos de personal, rotación y cobertura. Es el número que multiplica todo.</td></tr>
+    <tr><td><b>¿Cuántos contratistas o proveedores utilizan?</b></td><td>La exposición al riesgo Art. 30 (Risk). Más terceros, más superficie de riesgo.</td></tr>
+    <tr><td><b>¿Cuánto gastan hoy en esto?</b></td><td>La base sobre la que se calcula el ahorro o el recupero (gasto en salud, en búsquedas, en estructura).</td></tr>
+    <tr><td><b>¿Qué problemas tienen hoy con esto?</b></td><td>El dolor concreto, en palabras del cliente. Es la materia prima del paso 2.</td></tr>
+    <tr><td><b>¿Qué impacto les genera ese problema?</b></td><td>Las consecuencias (tiempo perdido, urgencias, sustos) que después se traducen en plata.</td></tr>
+    <tr><td><b>¿Cómo miden ese impacto hoy?</b></td><td>Si no lo miden (lo más común), ahí está nuestra oportunidad: somos los primeros en ponerle número.</td></tr>
+    <tr><td><b>¿Qué pasa si no se corrige?</b></td><td>El costo de no hacer nada (paso 4): cómo crece el problema o qué riesgo se corre al esperar.</td></tr>
+  </table></div>
+  <div class="note"><b>Cómo preguntar.</b> Se pregunta con naturalidad, no como interrogatorio. Una buena forma: “Para no hacerte perder tiempo con algo genérico, déjame entender tus números. ¿Cuántos…?”. El cliente que da datos ya está medio comprado: empezó a pensar en su problema con nosotros.</div>
+
+  <!-- 12.6 -->
+  <h3>6 · Plantilla oficial KLOVER para casos de negocio</h3>
+  <p>Una estructura reutilizable. Se completa con los datos del cliente y se presenta en una o dos carillas, simple y profesional.</p>
+  <div class="scrollx"><table class="tbl mono">
+    <tr><th style="width:32%">Parte</th><th>Qué se completa</th></tr>
+    <tr><td>1 · Situación actual</td><td>Datos del cliente: empleados, contratistas, gasto actual, cómo trabajan hoy.</td></tr>
+    <tr><td>2 · Problema detectado</td><td>El problema concreto, en una frase, con la palabra del cliente.</td></tr>
+    <tr><td>3 · Impacto económico estimado</td><td>El costo anual del problema, con el cálculo a la vista y marcado como estimación.</td></tr>
+    <tr><td>4 · Riesgos actuales</td><td>Qué puede salir mal si todo sigue igual (juicios, inspecciones, fugas de plata).</td></tr>
+    <tr><td>5 · Solución propuesta</td><td>Qué hace KLOVER para resolver ese problema puntual.</td></tr>
+    <tr><td>6 · Beneficios esperados</td><td>El resultado en números: cuánto se ahorra, recupera o protege.</td></tr>
+    <tr><td>7 · Inversión requerida</td><td>El costo del servicio y el modelo (abono, proyecto, a resultado).</td></tr>
+    <tr><td>8 · Retorno esperado</td><td>La comparación simple: por cada peso invertido, cuánto vuelve.</td></tr>
+    <tr><td>9 · Próximos pasos</td><td>Qué sigue y para cuándo, con fecha y responsable.</td></tr>
+  </table></div>
+  <div class="guide amber"><div class="gh">Regla de oro de la plantilla</div><p>Las partes 1 a 4 son del <b>cliente</b> (su situación, su problema, su costo, su riesgo). Recién las partes 5 a 8 hablan de <b>KLOVER</b>. Si la plantilla empieza hablando de nosotros, está mal armada: el orden es lo que la hace convincente.</p></div>
+
+  <!-- 12.7 -->
+  <h3>7 · Ejemplo completo · People</h3>
+  <div class="card" style="border-left:4px solid var(--indigo)">
+    <div class="scrollx"><table class="tbl">
+      <tr><th style="width:26%">Parte</th><th>Caso ilustrativo</th></tr>
+      <tr><td><b>Situación actual</b></td><td>Empresa de servicios con <b>120 empleados</b>. La gestión de RRHH la lleva el dueño con una asistente. Rotación anual del <b>30%</b> (36 personas se van y se reemplazan por año). No miden el costo de esa rotación.</td></tr>
+      <tr><td><b>Problema</b></td><td>Cada salida implica búsqueda, inducción y varios meses de baja productividad hasta que el reemplazo rinde. El dueño vive “apagando incendios” de personal.</td></tr>
+      <tr><td><b>Impacto económico</b></td><td>Costo estimado por reemplazo: <b>$1.500.000</b> (búsqueda + inducción + curva). 36 reemplazos × $1.500.000 = <b>$54.000.000 al año</b> <em>(ilustrativo)</em>.</td></tr>
+      <tr><td><b>Costo de no hacer nada</b></td><td>Si la rotación sigue, son $54 millones cada año, más el desgaste del dueño y el riesgo de perder gente clave.</td></tr>
+      <tr><td><b>Solución</b></td><td>KLOVER opera RRHH como equipo externo: procesos de selección, inducción y clima, con datos para anticipar quién está en riesgo de irse.</td></tr>
+      <tr><td><b>Resultado esperado</b></td><td>Bajar la rotación del 30% al <b>18%</b> en 12 meses: 14 salidas evitadas × $1.500.000 = <b>$21.000.000 de ahorro al año</b>.</td></tr>
+      <tr><td><b>Retorno estimado</b></td><td>Inversión: abono anual <b>$9.000.000</b>. Ahorro: $21.000.000. <b>Ganancia neta ≈ $12.000.000</b>: por cada $1 invertido, vuelven ~$2,3.</td></tr>
+    </table></div>
+  </div>
+
+  <!-- 12.8 -->
+  <h3>8 · Ejemplo completo · Salud</h3>
+  <div class="card" style="border-left:4px solid var(--green)">
+    <div class="scrollx"><table class="tbl">
+      <tr><th style="width:26%">Parte</th><th>Caso ilustrativo</th></tr>
+      <tr><td><b>Gasto médico actual</b></td><td>Empresa con cobertura médica para su personal: gasto anual de <b>$48.000.000</b>. Nadie audita el padrón ni la facturación con criterio.</td></tr>
+      <tr><td><b>Oportunidades de recupero</b></td><td>En auditorías similares se encuentra: cobertura que se sigue facturando tras la baja, aportes mal imputados y doble cobertura. Estimación conservadora: <b>6% del gasto</b>.</td></tr>
+      <tr><td><b>Estimación de ahorro</b></td><td>6% de $48.000.000 = <b>$2.880.000 recuperables</b> el primer año <em>(ilustrativo)</em>, más el ahorro futuro de mantener el padrón controlado.</td></tr>
+      <tr><td><b>Inversión</b></td><td><b>Cobro a resultado:</b> KLOVER cobra un % de lo recuperado (ej. 25% = $720.000). Si no se recupera nada, no se paga nada. <b>Riesgo cero para el cliente.</b></td></tr>
+      <tr><td><b>Retorno</b></td><td>El cliente se queda con <b>$2.160.000 netos</b> el primer año sin poner plata por adelantado. Por cada $1 de honorario, recupera ~$3.</td></tr>
+    </table></div>
+  </div>
+
+  <!-- 12.9 -->
+  <h3>9 · Ejemplo completo · Risk</h3>
+  <div class="card" style="border-left:4px solid var(--amber)">
+    <div class="scrollx"><table class="tbl">
+      <tr><th style="width:26%">Parte</th><th>Caso ilustrativo</th></tr>
+      <tr><td><b>Cantidad de contratistas</b></td><td>Empresa que trabaja con <b>45 proveedores y contratistas</b> (transporte, limpieza, mantenimiento). Controla los papeles “cuando se acuerda”.</td></tr>
+      <tr><td><b>Riesgos detectados</b></td><td><b>12 proveedores</b> sin documentación laboral al día (sueldos, aportes, ART). No hay registro de los controles hechos.</td></tr>
+      <tr><td><b>Contingencias potenciales</b></td><td>Por el Art. 30, si un proveedor no le paga a su gente, el reclamo puede caer sobre la empresa. Un solo reclamo puede costar <b>entre $8.000.000 y $15.000.000</b> (sueldos, aportes y costas) <em>(ilustrativo)</em>.</td></tr>
+      <tr><td><b>Beneficios del control</b></td><td>KLOVER controla a los 45 terceros mes a mes y deja la <b>evidencia documentada</b> que protege ante un reclamo o una inspección.</td></tr>
+      <tr><td><b>Justificación económica</b></td><td>Inversión: abono anual <b>$4.800.000</b>. El costo de <b>un solo</b> reclamo (≈$12.000.000) supera con creces el control de todo un año. Se paga una fracción para neutralizar una exposición mucho mayor.</td></tr>
+    </table></div>
+  </div>
+
+  <!-- 12.10 -->
+  <h3>10 · Errores frecuentes</h3>
+  <div class="grid g3">
+    <div class="card"><h4 class="dotR">Hablar del servicio antes del problema</h4><p>Presentar a KLOVER sin haber medido el dolor. El cliente escucha “gasto” en vez de “solución”. Primero el problema, siempre.</p></div>
+    <div class="card"><h4 class="dotR">No cuantificar el impacto</h4><p>Decir “tenés un problema” sin ponerle número. Sin plata de por medio, no hay urgencia ni decisión.</p></div>
+    <div class="card"><h4 class="dotR">No validar los datos</h4><p>Usar números inventados o sin confirmar con el cliente. Si el cliente no reconoce el dato como suyo, todo el caso se cae.</p></div>
+    <div class="card"><h4 class="dotR">Sobreprometer resultados</h4><p>Asegurar ahorros enormes para impresionar. Una promesa que no se cumple destruye la confianza y la cuenta. Mejor conservador y cumplir.</p></div>
+    <div class="card"><h4 class="dotR">Hablar solo de precio</h4><p>Llevar la charla al “¿cuánto sale?” sin haber mostrado el retorno. Ahí se compite contra cualquiera por el número más bajo.</p></div>
+    <div class="card"><h4 class="dotR">No presentar escenarios</h4><p>Dar un solo número, que el cliente desconfía. Mostrar un rango (conservador, esperado, optimista) da credibilidad.</p></div>
+  </div>
+
+  <!-- 12.11 -->
+  <h3>11 · Presentación ejecutiva del caso de negocio</h3>
+  <p>El mismo caso de negocio se presenta distinto según a quién se le habla: a cada decisor le importa una cosa diferente. El número no cambia; cambia qué se resalta.</p>
+  <div class="scrollx"><table class="tbl">
+    <tr><th style="width:18%">A quién</th><th>Qué le importa</th><th>Cómo presentarle el caso</th></tr>
+    <tr><td><b>Dueño</b></td><td>Que la empresa funcione sin él y no perder plata.</td><td>Foco en el ahorro neto y en sacarse el problema de encima. “Esto se resuelve solo y te devuelve tiempo y plata.”</td></tr>
+    <tr><td><b>CEO / Gerente General</b></td><td>Resultados del negocio y previsibilidad.</td><td>Foco en el retorno y en el impacto sobre los objetivos de la empresa. Lenguaje de negocio, no de detalle técnico.</td></tr>
+    <tr><td><b>RRHH</b></td><td>Calidad del equipo y no quedar corto de gente ni cometer errores legales.</td><td>Foco en el resultado operativo (menos rotación, cumplimiento) y en que somos una extensión de su equipo, no un reemplazo.</td></tr>
+    <tr><td><b>Finanzas</b></td><td>Control del gasto, retorno y previsibilidad.</td><td>Foco en los números: ahorro, retorno por peso invertido y, en Salud, el cobro a resultado (riesgo cero).</td></tr>
+    <tr><td><b>Compras</b></td><td>Proveedor confiable, condiciones claras y riesgo controlado.</td><td>Foco en la trazabilidad, la evidencia y el cumplimiento. Mostrar que reducimos su riesgo, no que sumamos un gasto.</td></tr>
+  </table></div>
+  <div class="note"><b>En empresas grandes deciden varios a la vez.</b> Conviene preparar el caso con una cara para cada área: la misma estimación, pero resaltando ahorro para Finanzas, cumplimiento para Compras y operación para RRHH. Así cada uno encuentra su razón para decir que sí.</div>
+
+  <!-- 12.12 -->
+  <h3>12 · Escenarios de análisis</h3>
+  <p>Presentar un solo número genera desconfianza (“¿y si no es tanto?”). Presentar <b>tres escenarios</b> da credibilidad y deja que el cliente elija en cuál cree. El caso se vuelve más sólido, no más débil. Tomando el ejemplo de Salud (gasto de $48.000.000):</p>
+  <div class="scrollx"><table class="tbl center">
+    <tr><th style="text-align:left">Escenario</th><th>% recuperable</th><th>Recupero estimado</th><th>Cuándo usarlo</th></tr>
+    <tr><td style="text-align:left"><b>Conservador</b></td><td>4%</td><td>$1.920.000</td><td>Por defecto, para no sobreprometer. Es el número que siempre podemos defender.</td></tr>
+    <tr><td style="text-align:left"><b>Esperado</b></td><td>6%</td><td>$2.880.000</td><td>El más probable según casos similares. Es el que se usa como referencia central.</td></tr>
+    <tr><td style="text-align:left"><b>Optimista</b></td><td>9%</td><td>$4.320.000</td><td>Si los datos del cliente muestran mucho desorden. Se presenta como techo posible, no como promesa.</td></tr>
+  </table></div>
+  <div class="guide green"><div class="gh">Cómo usar los escenarios en la charla</div><p>Se ancla la conversación en el <b>conservador</b>: “Incluso en el peor caso, recuperás casi $2 millones y no ponés plata por adelantado”. Si hasta el escenario malo conviene, la decisión es fácil. El esperado y el optimista muestran cuánto más se puede ganar, pero la venta ya está hecha con el conservador.</p></div>
+  <div class="note warn"><b>Recordatorio.</b> Todos los números de este capítulo son ilustrativos, para mostrar el método. En cada caso real se reemplazan por los datos del cliente, validados con él. Un caso de negocio se sostiene sobre datos reales: ahí está su fuerza.</div>
+</section>
+
+<!-- 13 PROPUESTAS -->
+<section class="sec reveal" id="propuestas">
+  <div class="kicker">Vender · 14</div><h2>Propuestas comerciales</h2>
+  <p class="lead">La propuesta no describe lo que hacemos: describe <b>lo que el cliente gana y cuánto le cuesta no hacerlo</b>. Una buena propuesta se entiende en dos minutos y conecta directamente con el dolor que detectamos en la reunión.</p>
+
+  <h3>Qué debe tener una propuesta</h3>
+  <div class="scrollx"><table class="tbl mono">
+    <tr><th style="width:26%">Parte</th><th>Qué incluye</th></tr>
+    <tr><td>1 · El problema</td><td>El dolor que detectamos, en las palabras del cliente, con su impacto económico estimado.</td></tr>
+    <tr><td>2 · La solución</td><td>Qué hace KLOVER puntualmente para resolver ese dolor (solo lo que aplica, no todo el catálogo).</td></tr>
+    <tr><td>3 · El alcance</td><td>Qué incluye y qué no, para evitar malentendidos después.</td></tr>
+    <tr><td>4 · El resultado esperado</td><td>Qué va a ganar el cliente y cómo lo vamos a medir.</td></tr>
+    <tr><td>5 · El precio</td><td>El modelo (abono, proyecto, a resultado, por volumen) y el número, presentado como inversión frente al costo del problema.</td></tr>
+    <tr><td>6 · El próximo paso</td><td>Cómo se arranca y para cuándo. Una propuesta sin próximo paso se queda quieta.</td></tr>
+  </table></div>
+
+  <h3>Cómo vincular la propuesta con el problema detectado</h3>
+  <p>Cada propuesta tiene que <b>devolverle al cliente lo que dijo en la reunión</b>. Si en la reunión dijo “tengo mucha rotación de choferes y no sé cuánto me cuesta”, la propuesta abre con eso: “Detectamos una rotación de [X] que representa unos [monto] al año”. Así el cliente siente que la propuesta es para él, no una plantilla.</p>
+
+  <h3>Cómo presentar el precio</h3>
+  <div class="guide"><div class="gh">El precio se presenta junto al costo del problema</div><p>Nunca se manda un número solo. Se presenta así: <b>“El problema te cuesta [monto] al año; nuestra solución cuesta [precio], una fracción de eso”</b>. En Salud, el cobro a resultado lo hace todavía más fácil: “cobramos solo un porcentaje de lo que recuperamos, así que el riesgo es cero para vos”.</p></div>
+
+  <h3>Cómo evitar competir solo por precio</h3>
+  <ul>
+    <li><b>Cuantificá el dolor primero:</b> si el cliente ve el costo del problema, deja de mirar solo el precio.</li>
+    <li><b>Mostrá lo difícil de copiar:</b> plataforma propia, las tres unidades integradas, ejecución (no solo consejo), cobro a resultado.</li>
+    <li><b>Entrá con baja barrera:</b> diagnóstico sin cargo y cobro a resultado abren la relación; la cuenta crece después con venta cruzada.</li>
+    <li><b>No regales descuentos sin contrapartida:</b> si bajás el precio, pedí algo a cambio (más alcance, contrato más largo, un referido).</li>
+  </ul>
+
+  <h3>Cómo hacer seguimiento de una propuesta</h3>
+  <div class="guide green"><div class="gh">Una propuesta enviada no es una propuesta cerrada</div><ol>
+    <li>Al enviarla, <b>acordá la fecha</b> en que la van a revisar juntos. No la dejes “para que la lea”.</li>
+    <li>A las 48 horas, un toque corto para confirmar que llegó y que se entendió (guion en sección 10).</li>
+    <li>Si no hay respuesta, seguí cada 3–4 días, hasta 4 o 5 veces, aportando algo en cada toque.</li>
+    <li>Registrá cada toque y el <b>próximo paso con fecha</b> en el sistema. Una propuesta sin seguimiento se pierde sola.</li>
+  </ol></div>
+</section>
+
+<!-- 13 OBJECIONES -->
+<section class="sec reveal" id="objeciones">
+  <div class="kicker">Vender · 15</div><h2>Objeciones comerciales</h2>
+  <p class="lead">Una objeción casi nunca es un “no”: es una duda o un miedo que el cliente todavía no resolvió. Bien tomada, una objeción <b>acerca la venta</b>, porque muestra qué le falta para decidir. Acá están las ocho más comunes, con qué responder y por qué funciona.</p>
+  <div class="scrollx"><table class="tbl">
+    <tr><th style="width:20%">Te dicen…</th><th>Respondés…</th><th>Por qué funciona</th></tr>
+    <tr><td><b>“Es caro.”</b></td><td>“Comparado con qué. El costo de la rotación / lo que se paga de más en salud / un juicio por Art. 30 es mayor que nuestro honorario. Te lo muestro con tu número en el diagnóstico.”</td><td>Mueve la conversación del precio al retorno.</td></tr>
+    <tr><td><b>“No tengo presupuesto.”</b></td><td>“Lo entiendo. Por eso entramos con un diagnóstico sin cargo y, en Salud, cobrando a resultado: no necesitás presupuesto por adelantado, pagás de lo que recuperás.”</td><td>Baja la barrera a cero y saca la excusa de la plata.</td></tr>
+    <tr><td><b>“Ya tengo proveedor.”</b></td><td>“Perfecto para comparar. Te hago un diagnóstico sin cargo; si tu proveedor ya hace todo bien, lo confirmás sin costo. Si encontramos valor, decidís.”</td><td>No ataca al proveedor; ofrece una segunda opinión gratis.</td></tr>
+    <tr><td><b>“No es momento.”</b></td><td>“Sin problema. ¿Lo anclamos a una fecha concreta, como el cierre de ejercicio o la próxima auditoría? Te dejo la propuesta abierta y te escribo en [mes].”</td><td>Convierte un “no” en un seguimiento con fecha.</td></tr>
+    <tr><td><b>“Mandame información.”</b></td><td>“Te la mando, pero para que te sirva necesito 10 minutos para saber qué te importa de [Empresa]. Si no, te mando algo genérico que no usa nadie. ¿Te llamo el [día]?”</td><td>Evita el correo que muere en la bandeja; pide una mini-reunión.</td></tr>
+    <tr><td><b>“Lo vemos más adelante.”</b></td><td>“Bien. ¿‘Más adelante’ es el mes que viene o el trimestre que viene? Te escribo justo ahí. Y te dejo a mano el diagnóstico para cuando lo necesites.”</td><td>Le pone fecha a lo vago y deja la puerta abierta.</td></tr>
+    <tr><td><b>“No los conozco.”</b></td><td>“Es justo. Por eso la primera prueba es sin riesgo: diagnóstico gratis y, en Salud, cobramos a resultado. La confianza se gana con el primer resultado, no antes.”</td><td>Reemplaza la confianza por una prueba sin riesgo.</td></tr>
+    <tr><td><b>“Lo hacemos internamente.”</b></td><td>“No te reemplazamos: te sumamos capacidad sin contratar gente fija, con plataforma y datos que de otra forma cuesta sostener. Tu equipo gana tiempo, no pierde el control.”</td><td>Quita el miedo a perder control y suma, no resta.</td></tr>
+  </table></div>
+  <div class="guide amber"><div class="gh">El método para cualquier objeción</div><p><b>1)</b> Escuchá completa, sin interrumpir. <b>2)</b> Validá (“tiene sentido lo que decís”). <b>3)</b> Preguntá para entender qué hay detrás. <b>4)</b> Respondé con un dato o una prueba sin riesgo. <b>5)</b> Cerrá con un próximo paso. Nunca discutas ni te pongas a la defensiva: la objeción es información, no un ataque.</p></div>
+</section>
+
+<!-- 14 CAPACITACION -->
+<section class="sec reveal" id="capacitacion">
+  <div class="kicker">Gestionar el equipo · 16</div><h2>Capacitación de managers: programa de 6 meses</h2>
+  <p class="lead">El sistema solo funciona si todos los managers lo dominan igual. Este programa los lleva, mes a mes, de la mentalidad comercial al control de indicadores. Cada mes tiene objetivo, temas, ejercicios, role play (práctica actuada de una situación real), evaluación y resultado esperado. Una sesión semanal de 90 minutos alcanza.</p>
+
+  <div class="month">
+    <div class="mh"><div class="mn">1</div><div class="mt">Mentalidad comercial<small>Objetivo: dejar de ver la venta como “molestar” y verla como ayudar</small></div></div>
+    <div class="mb">
+      <div class="blk"><h5>Temas</h5><ul><li>Qué es vender en KLOVER (sección 3).</li><li>Vender por sistema vs. por relaciones.</li><li>La venta como ayuda, no como presión.</li></ul></div>
+      <div class="blk"><h5>Ejercicios y role play</h5><ul><li>Cada manager explica los 3 servicios en una frase.</li><li>Role play: discurso de 60 segundos frente al grupo.</li></ul></div>
+      <div class="blk"><h5>Evaluación</h5><p>Explica el valor de cada unidad sin tecnicismos y da su discurso de 60 segundos.</p></div>
+      <div class="blk"><h5>Resultado esperado</h5><p>Todos comparten el mismo discurso y pierden el miedo a prospectar.</p></div>
+    </div>
+  </div>
+
+  <div class="month">
+    <div class="mh"><div class="mn">2</div><div class="mt">Prospectación<small>Objetivo: que cada manager sepa llenar su embudo solo</small></div></div>
+    <div class="mb">
+      <div class="blk"><h5>Temas</h5><ul><li>Armar lista, investigar, encontrar decisores (sección 8).</li><li>Los tres canales y el seguimiento.</li><li>La rutina diaria (sección 9).</li></ul></div>
+      <div class="blk"><h5>Ejercicios y role play</h5><ul><li>Cada uno arma su lista de 30 empresas objetivo.</li><li>Role play: mensaje de LinkedIn y llamada inicial.</li></ul></div>
+      <div class="blk"><h5>Evaluación</h5><p>Entrega su lista cargada en el sistema y completa una semana con las metas mínimas.</p></div>
+      <div class="blk"><h5>Resultado esperado</h5><p>Cada manager prospecta todos los días y genera sus primeras reuniones.</p></div>
+    </div>
+  </div>
+
+  <div class="month">
+    <div class="mh"><div class="mn">3</div><div class="mt">Reuniones comerciales<small>Objetivo: conducir una reunión que descubre el dolor</small></div></div>
+    <div class="mb">
+      <div class="blk"><h5>Temas</h5><ul><li>La agenda modelo de 45 minutos (sección 11).</li><li>Preguntar y escuchar; cuantificar el impacto.</li><li>Cerrar con próximo paso.</li></ul></div>
+      <div class="blk"><h5>Ejercicios y role play</h5><ul><li>Role play de reunión completa: uno es cliente, otro vende, el grupo observa.</li><li>Practicar las 5 preguntas que abren el dolor.</li></ul></div>
+      <div class="blk"><h5>Evaluación</h5><p>Conduce una reunión simulada cuantificando el dolor y cerrando con próximo paso.</p></div>
+      <div class="blk"><h5>Resultado esperado</h5><p>Reuniones que terminan siempre con una próxima acción con fecha.</p></div>
+    </div>
+  </div>
+
+  <div class="month">
+    <div class="mh"><div class="mn">4</div><div class="mt">Gestión de oportunidades y negociación<small>Objetivo: mover oportunidades y defender el precio</small></div></div>
+    <div class="mb">
+      <div class="blk"><h5>Temas</h5><ul><li>Las 7 etapas y cuándo avanzar (sección 12).</li><li>El caso de negocio (sección 13) y propuestas que venden (sección 14).</li><li>Las 8 objeciones (sección 15).</li></ul></div>
+      <div class="blk"><h5>Ejercicios y role play</h5><ul><li>Revisar el embudo propio y depurarlo.</li><li>Role play: responder las 8 objeciones más comunes.</li></ul></div>
+      <div class="blk"><h5>Evaluación</h5><p>Presenta su embudo limpio y responde objeciones sin regalar precio.</p></div>
+      <div class="blk"><h5>Resultado esperado</h5><p>Embudos ordenados y mayor tasa de cierre.</p></div>
+    </div>
+  </div>
+
+  <div class="month">
+    <div class="mh"><div class="mn">5</div><div class="mt">Seguimiento y acompañamiento al equipo<small>Objetivo: que el manager sostenga la disciplina y ayude a su gente</small></div></div>
+    <div class="mb">
+      <div class="blk"><h5>Temas</h5><ul><li>El seguimiento como sistema, no como insistencia.</li><li>Cómo acompañar al equipo: guiar con preguntas, no resolver por el otro.</li><li>Cómo usar el sistema de reuniones (sección 17).</li></ul></div>
+      <div class="blk"><h5>Ejercicios y role play</h5><ul><li>Role play: revisión individual con un integrante del equipo.</li><li>Dar una devolución sobre una reunión observada.</li></ul></div>
+      <div class="blk"><h5>Evaluación</h5><p>Conduce una revisión individual y deja acuerdos con fecha.</p></div>
+      <div class="blk"><h5>Resultado esperado</h5><p>Managers que sostienen el ritmo del equipo sin que dirección esté encima.</p></div>
+    </div>
+  </div>
+
+  <div class="month">
+    <div class="mh"><div class="mn">6</div><div class="mt">Control de indicadores<small>Objetivo: gestionar con números, no con sensaciones</small></div></div>
+    <div class="mb">
+      <div class="blk"><h5>Temas</h5><ul><li>Indicadores de actividad, avance y resultado (sección 18).</li><li>Leer el tablero de control (sección 19).</li><li>Decidir qué hacer cuando un número baja.</li></ul></div>
+      <div class="blk"><h5>Ejercicios y role play</h5><ul><li>Cada manager analiza su propio tablero.</li><li>Caso: “la facturación bajó, ¿qué indicador miro primero?”.</li></ul></div>
+      <div class="blk"><h5>Evaluación</h5><p>Lee su tablero, detecta el cuello de botella y propone una acción concreta.</p></div>
+      <div class="blk"><h5>Resultado esperado</h5><p>Managers autónomos que gestionan su embudo con datos y piden ayuda con números en la mano.</p></div>
+    </div>
+  </div>
+  <div class="note"><b>Cómo se sostiene.</b> Cada mes cierra con una evaluación simple y práctica (no un examen): mostrar que se sabe hacer. Quien no aprueba un módulo lo repasa antes de seguir. Al final de los 6 meses, todos los managers manejan el mismo método.</div>
+</section>
+
+<!-- 15 REUNIONES -->
+<section class="sec reveal" id="reuniones">
+  <div class="kicker">Gestionar el equipo · 17</div><h2>Sistema de reuniones comerciales</h2>
+  <p class="lead">Un sistema sin ritmo se apaga en dos semanas. Estas cinco reuniones fijas son el latido del programa: mantienen la actividad arriba, destraban oportunidades y le dan a dirección los números para decidir. Cada una tiene objetivo, duración, participantes, agenda e indicadores que se revisan.</p>
+
+  <div class="month">
+    <div class="mh"><div class="mn">D</div><div class="mt">Reunión diaria breve (parada de pie)<small>15 minutos · todo el equipo comercial</small></div></div>
+    <div class="mb">
+      <div class="blk"><h5>Objetivo y agenda</h5><p>Arrancar el día alineados. Cada uno dice en 1 minuto: qué cerró ayer, qué va a hacer hoy y dónde está trabado. Sin discusiones largas: lo que necesita charla se aparta para después.</p></div>
+      <div class="blk"><h5>Indicadores que se revisan</h5><p>Reuniones del día, seguimientos pendientes, oportunidades a punto de cerrar. Es control de actividad, no de resultado.</p></div>
+    </div>
+  </div>
+  <div class="month">
+    <div class="mh"><div class="mn">S</div><div class="mt">Reunión semanal comercial<small>60 minutos · equipo comercial + Dirección Comercial</small></div></div>
+    <div class="mb">
+      <div class="blk"><h5>Objetivo y agenda</h5><p>Revisar el embudo y la actividad de la semana. Repaso de la actividad mínima por persona, revisión de oportunidades grandes una por una, y depuración: qué avanza, qué se descarta, qué pasa a dormido. Cada oportunidad sale con próximo paso y fecha.</p></div>
+      <div class="blk"><h5>Indicadores que se revisan</h5><p>Actividad de la semana (contactos, llamadas, mensajes, seguimientos), reuniones generadas, cobertura del embudo (que haya al menos 3 veces el objetivo en oportunidades abiertas).</p></div>
+    </div>
+  </div>
+  <div class="month">
+    <div class="mh"><div class="mn">M</div><div class="mt">Reunión mensual de resultados<small>90 minutos · equipo + Dirección Comercial + Dirección</small></div></div>
+    <div class="mb">
+      <div class="blk"><h5>Objetivo y agenda</h5><p>Mirar el resultado del mes y compararlo con la meta. Repaso del tablero completo, conversiones entre etapas (dónde se traba la venta), ventas cerradas y facturación nueva, y decisiones para el mes siguiente.</p></div>
+      <div class="blk"><h5>Indicadores que se revisan</h5><p>Ventas cerradas, facturación nueva, venta cruzada, tasa de cierre, tiempo de venta, % sin recomendación y paso entre etapas.</p></div>
+    </div>
+  </div>
+  <div class="month">
+    <div class="mh"><div class="mn">I</div><div class="mt">Revisión individual con cada manager<small>30 minutos · una vez por mes · manager + Dirección Comercial</small></div></div>
+    <div class="mb">
+      <div class="blk"><h5>Objetivo y agenda</h5><p>Acompañar a cada manager con sus números propios. Mirar juntos su embudo y su actividad, detectar su cuello de botella, acompañarlo y dejar 1 o 2 acuerdos concretos con fecha. Es apoyo, no examen.</p></div>
+      <div class="blk"><h5>Indicadores que se revisan</h5><p>Actividad y conversiones del manager, sus oportunidades trabadas y su avance hacia la meta individual.</p></div>
+    </div>
+  </div>
+  <div class="month">
+    <div class="mh"><div class="mn">G</div><div class="mt">Reunión de dirección comercial<small>Trimestral · 2 horas · Dirección + Dirección Comercial</small></div></div>
+    <div class="mb">
+      <div class="blk"><h5>Objetivo y agenda</h5><p>Mirar el negocio de arriba. Cierre del trimestre, salud del sistema (valor/costo del cliente, tasa de éxito, retención), qué canales y motores rinden mejor, y ajustes a la estrategia y las metas del trimestre siguiente.</p></div>
+      <div class="blk"><h5>Indicadores que se revisan</h5><p>Relación valor/costo del cliente (LTV/CAC), retención, % sin recomendación, rendimiento por canal y por unidad de negocio.</p></div>
+    </div>
+  </div>
+  <div class="note"><b>Regla del sistema de reuniones.</b> La diaria y la semanal son innegociables: son las que sostienen la actividad. Sin ellas, el embudo se vacía sin que nadie lo note hasta que faltan los cierres, dos meses después.</div>
+</section>
+
+<!-- 16 INDICADORES -->
+<section class="sec reveal" id="indicadores">
+  <div class="kicker">Medir · 18</div><h2>Indicadores comerciales</h2>
+  <p class="lead">Lo que no se mide no se gestiona. Pero no todos los números sirven para lo mismo. Se dividen en tres familias: <b>actividad</b> (lo que hacemos), <b>avance</b> (cómo responde el mercado) y <b>resultado</b> (lo que se vende). Mirar las tres juntas dice exactamente dónde está el problema.</p>
+  <div class="grid g3">
+    <div class="card" style="border-top:3px solid var(--indigo)"><div class="pill act">Actividad</div><h4 style="margin-top:8px">Lo que controlamos</h4><p>Es el esfuerzo: cuánto trabajamos. Lo controlamos al 100%. Si baja, el resultado va a bajar dentro de unas semanas.</p></div>
+    <div class="card" style="border-top:3px solid var(--green)"><div class="pill adv">Avance</div><h4 style="margin-top:8px">Cómo responde el mercado</h4><p>Mide si la actividad se transforma en interés. Si la actividad está bien pero el avance no, el problema es la calidad (a quién contactamos o qué decimos).</p></div>
+    <div class="card" style="border-top:3px solid var(--amber)"><div class="pill res">Resultado</div><h4 style="margin-top:8px">Lo que entra a la caja</h4><p>Es la consecuencia de los otros dos. Llega tarde: por eso no alcanza con mirarlo solo. Si los de arriba están bien, este llega.</p></div>
+  </div>
+
+  <h3>Indicadores de actividad</h3>
+  <div class="scrollx"><table class="tbl">
+    <tr><th style="width:30%">Indicador</th><th>Qué mide, en simple</th></tr>
+    <tr><td><b>Empresas investigadas</b></td><td>Cuántas empresas objetivo nuevas estudiamos y cargamos.</td></tr>
+    <tr><td><b>Contactos realizados</b></td><td>A cuántos decisores nuevos les escribimos o llamamos.</td></tr>
+    <tr><td><b>Llamadas</b></td><td>Cuántas veces levantamos el teléfono (con o sin respuesta).</td></tr>
+    <tr><td><b>Correos</b></td><td>Cuántos correos de prospección y seguimiento enviamos.</td></tr>
+    <tr><td><b>Seguimientos</b></td><td>Cuántos toques de seguimiento hicimos sobre contactos ya abiertos.</td></tr>
+  </table></div>
+
+  <h3>Indicadores de avance</h3>
+  <div class="scrollx"><table class="tbl">
+    <tr><th style="width:30%">Indicador</th><th>Qué mide, en simple</th></tr>
+    <tr><td><b>Respuestas</b></td><td>Cuántos contactos nos contestaron. Mide si el mensaje engancha.</td></tr>
+    <tr><td><b>Reuniones</b></td><td>Cuántas reuniones conseguimos. El primer salto importante.</td></tr>
+    <tr><td><b>Oportunidades creadas</b></td><td>Cuántas reuniones se convirtieron en oportunidades reales (con dolor e interés).</td></tr>
+    <tr><td><b>Propuestas enviadas</b></td><td>Cuántas propuestas pusimos sobre la mesa.</td></tr>
+  </table></div>
+
+  <h3>Indicadores de resultado</h3>
+  <div class="scrollx"><table class="tbl">
+    <tr><th style="width:30%">Indicador</th><th>Qué mide, en simple</th></tr>
+    <tr><td><b>Ventas cerradas</b></td><td>Cuántos clientes nuevos firmaron en el período.</td></tr>
+    <tr><td><b>Facturación nueva</b></td><td>Cuánta plata nueva por mes sumamos a la cartera.</td></tr>
+    <tr><td><b>Venta a clientes actuales</b></td><td>Cuánta facturación vino de venderle más a quien ya era cliente (venta cruzada).</td></tr>
+    <tr><td><b>Tasa de cierre</b></td><td>De las oportunidades que llegaron al final, qué porcentaje ganamos.</td></tr>
+    <tr><td><b>Tiempo de venta</b></td><td>Cuántos días pasan, en promedio, desde el primer contacto hasta la firma.</td></tr>
+  </table></div>
+  <div class="guide green"><div class="gh">Cómo se usan juntos para encontrar el problema</div><p>Si <b>la facturación bajó</b>, no se mira la facturación: se sube por la cadena. ¿Bajaron las <b>propuestas</b>? Mirá las <b>reuniones</b>. ¿Bajaron las reuniones? Mirá las <b>respuestas</b>. ¿Bajaron las respuestas con la actividad alta? El problema es el mensaje o a quién contactamos. ¿Bajó la <b>actividad</b>? Ahí está la causa. Así el número deja de ser un misterio y se convierte en una acción concreta.</p></div>
+</section>
+
+<!-- 17 TABLERO -->
+<section class="sec reveal" id="tablero">
+  <div class="kicker">Medir · 19</div><h2>Tablero de control comercial</h2>
+  <p class="lead">El tablero reúne los indicadores en una vista que todos miran igual. Acá van tablas modelo, listas para cargar, por vendedor, por manager, por unidad, por semana y por mes. Son plantillas: los números se completan con la realidad de KLOVER.</p>
+
+  <h3>Por vendedor (semana)</h3>
+  <div class="scrollx"><table class="tbl center">
+    <tr><th style="text-align:left">Vendedor</th><th>Invest.</th><th>Contactos</th><th>Llamadas</th><th>Correos</th><th>Seguim.</th><th>Reuniones</th><th>Oport.</th><th>Propuestas</th></tr>
+    <tr><td style="text-align:left">Meta</td><td>20</td><td>20</td><td>15</td><td>40</td><td>25</td><td>2–3</td><td>1–2</td><td>1</td></tr>
+    <tr><td style="text-align:left">Vendedor A</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td style="text-align:left">Vendedor B</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+  </table></div>
+
+  <h3>Por manager (mes)</h3>
+  <div class="scrollx"><table class="tbl center">
+    <tr><th style="text-align:left">Manager</th><th>Oportunidades abiertas</th><th>Cobertura del embudo</th><th>Propuestas</th><th>Cierres</th><th>Facturación nueva</th><th>Tasa de cierre</th></tr>
+    <tr><td style="text-align:left">Meta</td><td>≥ 3× objetivo</td><td>≥ 3×</td><td>—</td><td>—</td><td>$ ____</td><td>____ %</td></tr>
+    <tr><td style="text-align:left">Manager 1</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td style="text-align:left">Manager 2</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+  </table></div>
+
+  <h3>Por unidad de negocio (mes)</h3>
+  <div class="scrollx"><table class="tbl center">
+    <tr><th style="text-align:left">Unidad</th><th>Oportunidades</th><th>Propuestas</th><th>Cierres</th><th>Facturación nueva</th><th>Venta cruzada</th><th>Tiempo de venta</th></tr>
+    <tr><td style="text-align:left"><b class="dotP">People</b></td><td>—</td><td>—</td><td>—</td><td>$ ____</td><td>$ ____</td><td>____ días</td></tr>
+    <tr><td style="text-align:left"><b class="dotS">Salud</b></td><td>—</td><td>—</td><td>—</td><td>$ ____</td><td>$ ____</td><td>____ días</td></tr>
+    <tr><td style="text-align:left"><b class="dotR">Risk</b></td><td>—</td><td>—</td><td>—</td><td>$ ____</td><td>$ ____</td><td>____ días</td></tr>
+  </table></div>
+
+  <h3>Resumen semanal y mensual del negocio</h3>
+  <div class="grid g2">
+    <div class="card"><h4 class="dotP">Vista semanal (actividad y avance)</h4><ul><li>Total de contactos, llamadas, correos y seguimientos.</li><li>Reuniones generadas vs. meta.</li><li>Cobertura del embudo: ¿hay 3× el objetivo abierto?</li><li>Oportunidades sin próximo paso (deberían ser cero).</li></ul></div>
+    <div class="card"><h4 class="dotR">Vista mensual (resultado y salud)</h4><ul><li>Ventas cerradas y facturación nueva vs. meta.</li><li>Venta cruzada del mes.</li><li>Tasa de cierre y tiempo de venta.</li><li>% de clientes nuevos sin recomendación.</li></ul></div>
+  </div>
+  <div class="note"><b>Cada cuánto mirar cada cosa.</b> La <b>actividad</b>, todas las semanas. Las <b>conversiones y el resultado</b>, todos los meses. La <b>salud del negocio</b> (valor/costo del cliente, tasa de éxito, retención), cada tres meses. Mirar el número correcto en el momento correcto evita correr detrás de datos que todavía no significan nada.</div>
+</section>
+
+<!-- 18 ROADMAP -->
+<section class="sec reveal" id="roadmap">
+  <div class="kicker">Ejecutar · 20</div><h2>Plan de implementación de 180 días</h2>
+  <p class="lead">Del documento a la acción, en seis etapas de 30 días. Cada etapa tiene objetivo, acciones, responsables, entregables (lo que tiene que existir al terminar) e indicadores. No se pasa a la siguiente etapa sin cerrar los entregables de la anterior.</p>
+  <div class="tl">
+    <div class="tlitem"><div class="dot"></div><div class="pr">Días 1–30</div><div class="ph">Alineación, diagnóstico y orden comercial</div>
+      <div class="tlbox">
+        <div class="row"><div class="k">Objetivo</div><div>Poner a todos en la misma página y dejar la base lista para vender con método.</div></div>
+        <div class="row"><div class="k">Acciones</div><div>Presentar este programa a dirección y managers. Definir cliente ideal y discurso. Activar el sistema (CRM) con el embudo de 7 etapas. Armar la lista de venta cruzada de la cartera actual.</div></div>
+        <div class="row"><div class="k">Responsables</div><div>Dirección Comercial (lidera), Dirección (avala), managers (participan).</div></div>
+        <div class="row"><div class="k">Entregables</div><div>Cliente ideal escrito, discurso de 60 segundos, sistema cargado, lista de venta cruzada lista.</div></div>
+        <div class="row"><div class="k">Indicadores</div><div>100% de managers con el discurso aprendido; cartera completa cargada en el sistema.</div></div>
+      </div>
+    </div>
+    <div class="tlitem"><div class="dot"></div><div class="pr">Días 31–60</div><div class="ph">Capacitación inicial y armado de listas</div>
+      <div class="tlbox">
+        <div class="row"><div class="k">Objetivo</div><div>Que cada manager sepa prospectar y tenga su lista lista para salir.</div></div>
+        <div class="row"><div class="k">Acciones</div><div>Módulos 1 y 2 de la capacitación (mentalidad y prospección). Cada manager arma su lista de 30–50 empresas objetivo. Guiones y plantillas adaptados a cada unidad.</div></div>
+        <div class="row"><div class="k">Responsables</div><div>Dirección Comercial (capacita), managers (arman listas), Marketing (apoya contenido).</div></div>
+        <div class="row"><div class="k">Entregables</div><div>Listas cargadas, guiones listos, primera semana de actividad mínima cumplida.</div></div>
+        <div class="row"><div class="k">Indicadores</div><div>Cada manager con su lista; actividad mínima registrada en el sistema.</div></div>
+      </div>
+    </div>
+    <div class="tlitem"><div class="dot"></div><div class="pr">Días 61–90</div><div class="ph">Prospectación activa y primeras reuniones</div>
+      <div class="tlbox">
+        <div class="row"><div class="k">Objetivo</div><div>Llenar el embudo con oportunidades nuevas y empezar a reunirse.</div></div>
+        <div class="row"><div class="k">Acciones</div><div>Rutina diaria de prospección en marcha. Reuniones de venta cruzada con la cartera. Módulo 3 (reuniones). Reunión semanal y diaria funcionando.</div></div>
+        <div class="row"><div class="k">Responsables</div><div>Managers (prospectan y reúnen), Dirección Comercial (controla el ritmo).</div></div>
+        <div class="row"><div class="k">Entregables</div><div>Embudo con cobertura ≥ 3× el objetivo; primeras propuestas enviadas.</div></div>
+        <div class="row"><div class="k">Indicadores</div><div>Reuniones generadas por semana; oportunidades creadas; cobertura del embudo.</div></div>
+      </div>
+    </div>
+    <div class="tlitem"><div class="dot"></div><div class="pr">Días 91–120</div><div class="ph">Gestión de oportunidades y propuestas</div>
+      <div class="tlbox">
+        <div class="row"><div class="k">Objetivo</div><div>Convertir reuniones en propuestas y primeros cierres.</div></div>
+        <div class="row"><div class="k">Acciones</div><div>Módulo 4 (oportunidades y negociación). Seguimiento sistemático de propuestas. Primeros cierres y pases ordenados a Operaciones.</div></div>
+        <div class="row"><div class="k">Responsables</div><div>Managers (cierran), Dirección Comercial (acompaña), Operaciones (recibe).</div></div>
+        <div class="row"><div class="k">Entregables</div><div>Primeros clientes nuevos por sistema; embudo depurado y al día.</div></div>
+        <div class="row"><div class="k">Indicadores</div><div>Propuestas enviadas, cierres, facturación nueva, tasa de cierre.</div></div>
+      </div>
+    </div>
+    <div class="tlitem"><div class="dot"></div><div class="pr">Días 121–150</div><div class="ph">Optimización, acompañamiento y mejora de conversión</div>
+      <div class="tlbox">
+        <div class="row"><div class="k">Objetivo</div><div>Mejorar lo que se traba y subir la conversión entre etapas.</div></div>
+        <div class="row"><div class="k">Acciones</div><div>Módulo 5 (seguimiento y acompañamiento). Revisiones individuales con cada manager. Analizar dónde se cae el embudo y ajustar mensaje, perfil o proceso.</div></div>
+        <div class="row"><div class="k">Responsables</div><div>Dirección Comercial (acompaña), managers (ajustan).</div></div>
+        <div class="row"><div class="k">Entregables</div><div>Cuellos de botella identificados y corregidos; mejores prácticas documentadas.</div></div>
+        <div class="row"><div class="k">Indicadores</div><div>Paso entre etapas, tiempo de venta, tasa de cierre en mejora.</div></div>
+      </div>
+    </div>
+    <div class="tlitem"><div class="dot"></div><div class="pr">Días 151–180</div><div class="ph">Escalamiento, alianzas y sistema consolidado</div>
+      <div class="tlbox">
+        <div class="row"><div class="k">Objetivo</div><div>Consolidar el sistema y sumar el tercer motor: aliados.</div></div>
+        <div class="row"><div class="k">Acciones</div><div>Módulo 6 (indicadores). Sumar aliados (contadores, brokers, cámaras). Escalar el canal que mejor rinde. Plan del semestre siguiente.</div></div>
+        <div class="row"><div class="k">Responsables</div><div>Dirección y Dirección Comercial (estrategia), managers (ejecutan).</div></div>
+        <div class="row"><div class="k">Entregables</div><div>Sistema funcionando solo, primeros aliados activos, plan del próximo semestre.</div></div>
+        <div class="row"><div class="k">Indicadores</div><div>% sin recomendación, derivaciones de aliados, valor/costo del cliente.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 19 CAMBIO -->
+<section class="sec reveal" id="cambio">
+  <div class="kicker">Ejecutar · 21</div><h2>Gestión del cambio</h2>
+  <p class="lead">Instalar un sistema comercial cambia cómo trabaja la gente todos los días, y eso genera resistencia natural. Anticiparlo es parte del plan. No se trata de imponer: se trata de explicar, acompañar y sostener.</p>
+
+  <h3>Por qué la gente puede resistirse</h3>
+  <ul>
+    <li><b>Miedo a quedar expuesto:</b> medir la actividad puede sentirse como control o vigilancia.</li>
+    <li><b>Costumbre:</b> “siempre vendí a mi manera y me fue bien”. Cambiar cuesta aunque el método nuevo sea mejor.</li>
+    <li><b>Más trabajo al principio:</b> cargar todo en el sistema parece tiempo perdido hasta que se ven los frutos.</li>
+    <li><b>Desconfianza:</b> dudar de que “esto vaya a funcionar” o de que dirección lo sostenga.</li>
+  </ul>
+
+  <h3>Cómo comunicar el cambio</h3>
+  <div class="guide"><div class="gh">El cambio se vende, no se ordena</div><ol>
+    <li><b>Empezá por el porqué:</b> el sistema no es para controlar, es para que vendan más fácil y dependan menos de la suerte.</li>
+    <li><b>Mostrá qué ganan ellos:</b> menos estrés de fin de mes, un embudo siempre lleno, reuniones que se enseñan y se repiten.</li>
+    <li><b>Sé honesto con el esfuerzo inicial:</b> los primeros 30 días cuestan; los resultados llegan después.</li>
+    <li><b>Involucrá a los managers</b> en armar las listas y guiones: lo que se construye no se resiste igual que lo que se impone.</li>
+  </ol></div>
+
+  <h3>Cómo sostener la disciplina</h3>
+  <ul>
+    <li><b>Ritmo fijo de reuniones</b> (sección 17): la diaria y la semanal son las que sostienen el hábito.</li>
+    <li><b>Números a la vista:</b> cuando todos ven el tablero, la disciplina se vuelve cultura, no imposición.</li>
+    <li><b>Reconocer la actividad, no solo el cierre:</b> al principio se celebra prospectar bien, aunque la venta tarde.</li>
+    <li><b>Dirección presente:</b> si la dirección revisa el tablero cada semana, el equipo entiende que esto va en serio.</li>
+  </ul>
+
+  <h3>Qué hacer si alguien no adopta el sistema</h3>
+  <div class="guide amber"><div class="gh">Un camino claro, sin dramatismo</div><ol>
+    <li><b>Primero, entender:</b> ¿es que no puede (le falta entrenamiento) o no quiere? Se resuelven distinto.</li>
+    <li><b>Si no puede:</b> más acompañamiento y práctica en las revisiones individuales.</li>
+    <li><b>Si no quiere:</b> conversación franca de Dirección Comercial, dejando claro que el método no es opcional.</li>
+    <li><b>Si persiste:</b> el sistema no puede depender de voluntades. Se toma una decisión, porque una sola excepción debilita la disciplina de todos.</li>
+  </ol></div>
+
+  <h3>Cómo reforzar los comportamientos comerciales</h3>
+  <p>Lo que se reconoce, se repite. Conviene <b>celebrar en público</b> la prospección sostenida, la oportunidad bien cargada, la reunión que terminó con próximo paso. Al principio del programa, el comportamiento (la actividad bien hecha) importa más que el resultado, porque el resultado llega después. Reforzar el hábito hoy es asegurar la venta de mañana.</p>
+</section>
+
+<!-- 20 GLOSARIO -->
+<section class="sec reveal" id="glosario">
+  <div class="kicker">Ejecutar · 22</div><h2>Glosario comercial en español simple</h2>
+  <p class="lead">Todos los términos del programa, explicados como para alguien sin formación en ventas. Si en alguna parte no entendés una palabra, está acá.</p>
+  <div class="scrollx"><table class="tbl mono">
+    <tr><th style="width:28%">Palabra</th><th>Qué significa, simple</th></tr>
+    <tr><td>Vender</td><td>Ayudar a una empresa a resolver un problema que le cuesta plata, mostrando que con KLOVER lo resuelve mejor.</td></tr>
+    <tr><td>Prospectar</td><td>Salir a buscar empresas que todavía no nos conocen y empezar una conversación con ellas.</td></tr>
+    <tr><td>Empresa objetivo</td><td>Una empresa que encaja con nuestro cliente ideal: tamaño, rubro, problema y capacidad de pago.</td></tr>
+    <tr><td>Cliente ideal <small>(ICP)</small></td><td>El tipo de empresa a la que más nos conviene venderle: la que mejor cierra, paga y se queda.</td></tr>
+    <tr><td>Decisor</td><td>La persona que tiene el poder de decir “sí” y firmar.</td></tr>
+    <tr><td>Contacto <small>(lead)</small></td><td>Una empresa o persona que mostró algún interés en nosotros.</td></tr>
+    <tr><td>Oportunidad</td><td>Una empresa objetivo donde ya detectamos un problema real y hay interés en resolverlo.</td></tr>
+    <tr><td>Embudo <small>(pipeline)</small></td><td>La lista de oportunidades abiertas y en qué etapa está cada una.</td></tr>
+    <tr><td>Cobertura del embudo</td><td>Cuántas veces el objetivo tenemos en oportunidades abiertas. Queremos al menos 3 veces.</td></tr>
+    <tr><td>Diagnóstico</td><td>La primera revisión sin cargo donde detectamos el dolor del cliente y le ponemos un número.</td></tr>
+    <tr><td>Propuesta</td><td>El documento que conecta el problema detectado con la solución, el alcance y el precio.</td></tr>
+    <tr><td>Cerrar</td><td>Acordar que arrancamos: alcance, condiciones y firma.</td></tr>
+    <tr><td>Seguimiento</td><td>Volver a contactar a quien no respondió o no decidió, aportando algo en cada toque (no “¿lo viste?”).</td></tr>
+    <tr><td>Cartera</td><td>Los clientes que ya tenemos.</td></tr>
+    <tr><td>Venta cruzada <small>(cross-sell)</small></td><td>Venderle otra de nuestras unidades a un cliente que ya tenemos.</td></tr>
+    <tr><td>Salir a buscar <small>(outbound)</small></td><td>Contactar nosotros a clientes nuevos, sin esperar que nos recomienden.</td></tr>
+    <tr><td>Cliente dormido</td><td>Un contacto que no avanzó pero que puede servir más adelante; se recontacta a los meses.</td></tr>
+    <tr><td>Referido</td><td>Una empresa que nos recomienda un cliente o un aliado.</td></tr>
+    <tr><td>Aliado</td><td>Un socio (contador, broker, cámara) que nos trae clientes ya calificados.</td></tr>
+    <tr><td>Role play</td><td>Practicar una situación real actuándola: uno hace de cliente y otro vende, para entrenar.</td></tr>
+    <tr><td>Objeción</td><td>Una duda o miedo del cliente que frena la decisión. No es un “no”: es algo por resolver.</td></tr>
+    <tr><td>Indicador <small>(KPI)</small></td><td>Un número que mide si una parte del trabajo va bien o mal.</td></tr>
+    <tr><td>Indicador de actividad</td><td>Mide cuánto trabajamos (contactos, llamadas, correos). Lo controlamos al 100%.</td></tr>
+    <tr><td>Indicador de avance</td><td>Mide si la actividad genera interés (respuestas, reuniones, propuestas).</td></tr>
+    <tr><td>Indicador de resultado</td><td>Mide lo que se vende (cierres, facturación, tasa de cierre).</td></tr>
+    <tr><td>Tasa de cierre <small>(win rate)</small></td><td>De las oportunidades que llegan al final, qué porcentaje ganamos.</td></tr>
+    <tr><td>Tiempo de venta</td><td>Cuántos días pasan, en promedio, desde el primer contacto hasta la firma.</td></tr>
+    <tr><td>Costo de conseguir un cliente <small>(CAC)</small></td><td>Cuánta plata gastamos (ventas + marketing) para sumar un cliente nuevo.</td></tr>
+    <tr><td>Valor del cliente en el tiempo <small>(LTV)</small></td><td>Cuánta plata nos deja un cliente mientras sigue siendo cliente.</td></tr>
+    <tr><td>Cobro a resultado <small>(success fee)</small></td><td>Cobramos solo si logramos el resultado (por ejemplo, el recupero en Salud).</td></tr>
+    <tr><td>Art. 30</td><td>La ley por la que una empresa puede ser responsable de las deudas laborales de sus proveedores. Es el dolor que resuelve Risk.</td></tr>
+    <tr><td>Sistema único <small>(CRM)</small></td><td>El único lugar donde se cargan clientes, contactos, oportunidades y actividad. Lo que no está ahí, no existe.</td></tr>
+  </table></div>
+</section>
+
+<!-- 21 CIERRE -->
+<section class="sec reveal" id="cierre">
+  <div class="kicker">Ejecutar · 23</div><h2>Cierre ejecutivo</h2>
+  <p class="lead">KLOVER no necesita vender más por esfuerzo aislado. Necesita vender por sistema.</p>
+  <p>El producto ya es bueno y los clientes se quedan. Lo que falta no es trabajar más horas ni ponerle más ganas: es <b>instalar un método compartido</b> que convierta la actividad de cada día en clientes de forma previsible. Ese es todo el cambio que propone este programa, y es un cambio de raíz: de depender de la suerte y las relaciones, a depender de algo que sí controlamos —cuánto prospectamos y qué tan bien lo hacemos—.</p>
+  <div class="stats">
+    <div class="stat"><div class="n">Cada semana</div><div class="l">se generan oportunidades nuevas, exista o no una recomendación.</div></div>
+    <div class="stat"><div class="n">Cada manager</div><div class="l">sabe gestionarlas con el mismo método, paso a paso.</div></div>
+    <div class="stat"><div class="n">La dirección</div><div class="l">ve el avance con datos, no con sensaciones.</div></div>
+    <div class="stat"><div class="n">180 días</div><div class="l">para pasar de vender por relaciones a vender por sistema.</div></div>
+  </div>
+  <div class="guide green"><div class="gh">Lo que se decide hoy</div><ul>
+    <li>Acordar las <b>metas</b> (los números) del semestre.</li>
+    <li>Asignar un <b>responsable</b> por cada uno de los tres motores de crecimiento.</li>
+    <li>Confirmar el <b>ritmo de reuniones</b> (diaria, semanal, mensual, individual, trimestral).</li>
+    <li>Arrancar la <b>venta cruzada</b> con la cartera actual esta misma semana: es lo que más rinde y más rápido.</li>
+  </ul></div>
+  <p style="font-family:var(--head);font-weight:800;font-size:19px;margin-top:18px;max-width:none">La venta deja de depender de la suerte cuando se vuelve método — y ese método es de todo el equipo.</p>
+</section>
+
+
+
+
+</main>
+</div>
+
+<!-- PRESENTACIÓN -->
+<div id="present">
+  <div class="pbar" id="pbar"></div>
+  <div class="plogo"><span class="klogo" style="width:24px;height:24px"></span>KLOVER</div>
+  <button class="pexit" onclick="closePres()">✕ Salir (Esc)</button>
+
+  <div class="pslide" data-i="0"><div class="pk">Programa de Transformación Comercial</div><h2>De vender por relaciones<br>a vender por <span class="g">sistema.</span></h2><div class="psub">Cómo KLOVER va a generar oportunidades nuevas todas las semanas, alinear a managers y dirección, y vender de forma previsible. Horizonte: 180 días.</div><svg class="pcl" viewBox="0 0 300 300"><g transform="rotate(16,150,150)"><g transform="rotate(0,150,150)"><ellipse cx="150" cy="100" rx="18" ry="44" fill="#9fe1cb" opacity=".9"/></g><g transform="rotate(72,150,150)"><ellipse cx="150" cy="100" rx="18" ry="44" fill="#8fe49a" opacity=".82"/></g><g transform="rotate(144,150,150)"><ellipse cx="150" cy="100" rx="18" ry="44" fill="#aab0ff" opacity=".8"/></g><g transform="rotate(216,150,150)"><ellipse cx="150" cy="100" rx="18" ry="44" fill="#7ddc8f" opacity=".74"/></g><g transform="rotate(288,150,150)"><ellipse cx="150" cy="100" rx="18" ry="44" fill="#9b97ff" opacity=".7"/></g></g></svg></div>
+
+  <div class="pslide" data-i="1"><div class="pk">El problema</div><h2>El producto es bueno.<br>El <span class="g">crecimiento es impredecible.</span></h2><ul><li><b>Dependemos de que nos recomienden:</b> no es repetible ni planificable.</li><li><b>No prospectamos parejo:</b> nadie tiene la tarea fija de buscar clientes nuevos.</li><li><b>No medimos nada:</b> no sabemos dónde se traba la venta.</li><li><b>Cada uno vende a su manera:</b> lo que funciona no se enseña ni se repite.</li></ul></div>
+
+  <div class="pslide" data-i="2"><div class="pk">La idea madre</div><h2>No más esfuerzo aislado:<br>el mismo <span class="g">método para todos.</span></h2><div class="psub">Un sistema es un conjunto de pasos con responsables, frecuencia y números, que convierte la actividad diaria en clientes de forma medible.</div><ul><li>Vender por relaciones: el resultado depende de la suerte.</li><li>Vender por sistema: el resultado depende de <b>cuánto y cómo trabajamos</b> — lo que sí controlamos.</li></ul></div>
+
+  <div class="pslide" data-i="3"><div class="pk">A quién le vendemos</div><h2>El <span class="g">cliente ideal.</span></h2><ul><li><b>PyME (15–200):</b> decide el dueño, ciclo corto, le duele “hacer todo él”.</li><li><b>Empresa grande (200+):</b> decide un comité, ciclo largo, importa el costo, el riesgo y los datos.</li><li><b>A quién NO:</b> muy chicas, las que tapan un agujero puntual, las que solo miran el precio.</li></ul></div>
+
+  <div class="pslide" data-i="4"><div class="pk">Por qué nos eligen</div><h2>Lo que nos <span class="g">diferencia.</span></h2><ul><li><b>Plataforma propia + datos</b> (no una planilla).</li><li><b>Cobramos a resultado</b> en el recupero de Salud.</li><li><b>Tres unidades integradas:</b> un solo socio para personas, salud y riesgo.</li><li><b>Ejecutamos,</b> no solo aconsejamos.</li></ul></div>
+
+  <div class="pslide" data-i="5"><div class="pk">El motor del sistema</div><h2>Prospectar todos los días, <span class="g">por método.</span></h2><div class="psub">Lista de empresas objetivo → investigar → encontrar decisores → contactar por 3 canales → seguir 5 a 7 veces → registrar todo.</div><ul><li><b>Meta mínima diaria:</b> investigar, contactar, llamar y seguir.</li><li><b>Bloque de las 9 h:</b> sagrado e innegociable.</li><li><b>5 a 7 intentos</b> antes de pasar un contacto a “dormido”.</li></ul></div>
+
+  <div class="pslide" data-i="6"><div class="pk">La reunión</div><h2>No se habla de KLOVER:<br>se busca el <span class="g">dolor.</span></h2><ul><li><b>Hablar poco, escuchar mucho:</b> quien más pregunta, más vende.</li><li><b>Cuantificar el dolor:</b> ponerle un número en plata.</li><li><b>Mostrar solo lo que resuelve ese dolor,</b> no todo el catálogo.</li><li><b>Cerrar siempre con un próximo paso con fecha.</b></li></ul></div>
+
+  <div class="pslide" data-i="7"><div class="pk">Las oportunidades</div><h2>Siete etapas, <span class="g">una regla.</span></h2><div class="psub">Posible → Contactado → Reunión → Diagnóstico → Propuesta → Negociación → Cliente.</div><ul><li>Una oportunidad avanza por una <b>condición</b>, no por el paso del tiempo.</li><li><b>Ninguna oportunidad sin próximo paso con fecha.</b></li><li>Lo que no está en el sistema, no existe.</li></ul></div>
+
+  <div class="pslide" data-i="8"><div class="pk">El caso de negocio</div><h2>De “tenés un problema”<br>a <span class="g">“te cuesta tanto”.</span></h2><div class="psub">La herramienta que justifica la inversión: le pone número al problema antes de hablar de precio. Va después del diagnóstico y antes de la propuesta.</div><ul><li><b>People:</b> “Tu rotación cuesta $54M al año; bajándola a la mitad ahorrás $21M.”</li><li><b>Salud:</b> “Recuperamos ~6% de tu gasto y cobramos solo si recuperamos.”</li><li><b>Risk:</b> “Un solo reclamo Art. 30 cuesta más que el control de todo un año.”</li></ul></div>
+
+  <div class="pslide" data-i="9"><div class="pk">Medir</div><h2>Tres familias de <span class="g">números.</span></h2><div class="pcards"><div class="pcard"><div class="n">Actividad</div><h3>Lo que controlamos</h3><p>Contactos, llamadas, correos, seguimientos.</p></div><div class="pcard"><div class="n">Avance</div><h3>Cómo responde el mercado</h3><p>Respuestas, reuniones, oportunidades, propuestas.</p></div><div class="pcard"><div class="n">Resultado</div><h3>Lo que entra</h3><p>Cierres, facturación, tasa de cierre, tiempo de venta.</p></div></div></div>
+
+  <div class="pslide" data-i="10"><div class="pk">El equipo</div><h2>Managers entrenados<br>y un <span class="g">ritmo fijo.</span></h2><ul><li><b>Capacitación de 6 meses:</b> de la mentalidad al control de indicadores.</li><li><b>Reunión diaria</b> (15 min) y <b>semanal</b> (embudo): innegociables.</li><li><b>Revisión individual</b> mensual con cada manager: acompañamiento, no examen.</li><li><b>Dirección</b> revisa el tablero cada semana.</li></ul></div>
+
+  <div class="pslide" data-i="11"><div class="pk">El plan</div><h2>180 días, <span class="g">seis etapas.</span></h2><ul><li><b>1–30:</b> alineación, diagnóstico y orden.</li><li><b>31–60:</b> capacitación y armado de listas.</li><li><b>61–90:</b> prospección activa y primeras reuniones.</li><li><b>91–120:</b> oportunidades y propuestas.</li><li><b>121–150:</b> optimización y acompañamiento.</li><li><b>151–180:</b> escalamiento, alianzas y sistema consolidado.</li></ul></div>
+
+  <div class="pslide" data-i="12"><div class="pk">Lo que decidimos hoy</div><h2>Salimos con el <span class="g">sistema en marcha.</span></h2><ul><li>Acordar las <b>metas</b> del semestre.</li><li>Asignar un <b>responsable</b> por cada motor de crecimiento.</li><li>Confirmar el <b>ritmo</b> de reuniones.</li><li>Arrancar la <b>venta cruzada</b> con la cartera esta semana.</li></ul><div class="psub" style="margin-top:18px"><b style="color:#fff">La venta deja de depender de la suerte cuando se vuelve método.</b></div></div>
+
+  <div class="pctrl"><button class="pbtn2" onclick="pgo(-1)">‹</button><div class="pdots" id="pdots"></div><button class="pbtn2" onclick="pgo(1)">›</button><span class="pcount" id="pcount"></span></div>
+</div>
+
+<footer><b>KLOVER</b> · Programa de Transformación Comercial · Uso interno — <b>No vendemos más por esfuerzo aislado: vendemos por sistema.</b></footer>
+
+<script>
+document.querySelectorAll('[data-tabs] .tab').forEach(t=>{t.addEventListener('click',()=>{const g=t.closest('[data-tabs]');g.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');const scope=g.getAttribute('data-tabs');document.querySelectorAll('.panel[data-g="'+scope+'"]').forEach(p=>p.classList.remove('on'));document.getElementById(t.dataset.t).classList.add('on');});});
+document.querySelectorAll('.copy').forEach(btn=>{btn.addEventListener('click',()=>{const c=btn.closest('.script,.mail,.post');let txt='';const a=c.querySelector('.sh,.asunto'),b=c.querySelector('.sb,.body,.ptxt');txt=(a?a.innerText+'\n\n':'')+(b?b.innerText:'');navigator.clipboard.writeText(txt.trim()).then(()=>{const o=btn.innerText;btn.innerText='Copiado ✓';btn.classList.add('done');setTimeout(()=>{btn.innerText=o;btn.classList.remove('done');},1500);});});});
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.04});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const secs=[...document.querySelectorAll('section[id]')],links=[...document.querySelectorAll('#toc a')];
+const spy=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id));}})},{rootMargin:'-30% 0px -60% 0px'});
+secs.forEach(s=>spy.observe(s));
+const P=document.getElementById('present'),slides=[...document.querySelectorAll('.pslide')],dots=document.getElementById('pdots');
+let pi=0;
+slides.forEach((s,i)=>{const d=document.createElement('div');d.className='pdot';d.onclick=()=>pset(i);dots.appendChild(d);});
+function pset(i){pi=Math.max(0,Math.min(slides.length-1,i));slides.forEach((s,k)=>s.classList.toggle('on',k===pi));[...dots.children].forEach((d,k)=>d.classList.toggle('on',k===pi));document.getElementById('pcount').textContent=(pi+1)+' / '+slides.length;document.getElementById('pbar').style.width=((pi+1)/slides.length*100)+'%';}
+function pgo(n){pset(pi+n);}
+function openPres(){P.classList.add('open');document.body.style.overflow='hidden';pset(0);}
+function closePres(){P.classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(!P.classList.contains('open'))return;if(e.key==='ArrowRight'||e.key===' ')pgo(1);else if(e.key==='ArrowLeft')pgo(-1);else if(e.key==='Escape')closePres();});
+</script>
+</body>
+</html>
